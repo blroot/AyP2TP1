@@ -43,8 +43,7 @@ public class Atraccion extends Comprable {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getNombre() + " " + this.tipoDeAtraccion + " " + this.getPrecio() + " " + this.promedioDeTiempo;
 	}
 
 }

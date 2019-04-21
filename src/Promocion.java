@@ -54,8 +54,7 @@ public class Promocion extends Comprable {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getNombre() + " " + this.getTipoDeAtraccion() + " " + this.getPrecio() + " " + this.getTiempoTotal();
 	}
 
 	public Atraccion[] getAtracciones() {

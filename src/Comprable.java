@@ -5,6 +5,7 @@ public abstract class Comprable {
 	private String nombre;
 	
 	Comprable(String nombre, TipoDeComprable tipoDeComprable) {
+		this.nombre = nombre;
 		this.tipoDeComprable = tipoDeComprable;
 	}
 	
