@@ -21,12 +21,21 @@ public class Atraccion extends Comprable {
 
 	@Override
 	public boolean puedeAdquirir(Usuario usuario) {
-		// TODO Auto-generated method stub
+		if(usuario.getPresupuesto()>getPrecio()&&usuario.getTiempoDisponible()>getTiempoTotal()) {
+			
+		} else if(!(usuario.getPresupuesto()>getPrecio())) {
+			System.err.println();//falta la excepcion, en general
+		} else {
+			
+		}
 		return false;
 	}
 
 	@Override
 	public void vender(Usuario usuario) {
+		if(puedeAdquirir(usuario)) {
+			usuario.agregarComprable(this);
+		}
 		// TODO Auto-generated method stub
 		
 	}
