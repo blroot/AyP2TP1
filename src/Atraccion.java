@@ -7,7 +7,7 @@ public class Atraccion extends Comprable {
 	private TipoDeAtraccion tipoDeAtraccion;
 
 	Atraccion(String nombre, int costo, double tiempo, int cupo, TipoDeAtraccion tipo) {
-		super(nombre, TipoDeComprable.Atraccion);
+		super(nombre, Prioridad.Baja);
 		this.costo = costo;
 		this.promedioDeTiempo = tiempo;
 		this.cupoDiario = cupo;

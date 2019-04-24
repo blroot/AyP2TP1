@@ -1,16 +1,16 @@
 
 public abstract class Comprable {
 
-	private TipoDeComprable tipoDeComprable;
+	private Prioridad prioridad;
 	private String nombre;
 	
-	Comprable(String nombre, TipoDeComprable tipoDeComprable) {
+	Comprable(String nombre, Prioridad prioridad) {
 		this.nombre = nombre;
-		this.tipoDeComprable = tipoDeComprable;
+		this.prioridad = prioridad;
 	}
 	
-	public TipoDeComprable getTipoDeComprable() {
-		return this.tipoDeComprable;
+	public Prioridad getPrioridad() {
+		return this.prioridad;
 	}
 	
 	public String getNombre() {

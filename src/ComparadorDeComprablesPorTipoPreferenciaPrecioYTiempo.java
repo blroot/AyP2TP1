@@ -14,33 +14,26 @@ public class ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo implements Co
 		
 		int puntaje = 0;
 		
+		// Primero se compara por tipo de atracción
 		if (arg0.getTipoDeAtraccion() == this.tipoDeAtraccion && arg1.getTipoDeAtraccion() != this.tipoDeAtraccion) {
 			puntaje = -1;
 		} else if (arg1.getTipoDeAtraccion() == this.tipoDeAtraccion && arg0.getTipoDeAtraccion() != this.tipoDeAtraccion) {
 			puntaje = 1;
 		}
 		
+		// Si hasta ahora son iguales se compara por prioridad
 		if (puntaje == 0) {
-			if (arg0.getTipoDeComprable() == TipoDeComprable.Promocion && arg1.getTipoDeComprable() != TipoDeComprable.Promocion) {
-				puntaje = -1;
-			} else if (arg1.getTipoDeComprable() == TipoDeComprable.Promocion && arg0.getTipoDeComprable() != TipoDeComprable.Promocion) {
-				puntaje = 1;
-			}
+			puntaje += arg0.getPrioridad().compareTo(arg1.getPrioridad());
 		}
 		
+		// Si hasta ahora son iguales se compara por precio
 		if (puntaje == 0) {
-			if (arg0.getPrecio() > arg1.getPrecio()) {
-				puntaje = -1;
-			} else if (arg0.getPrecio() < arg1.getPrecio()) {
-				puntaje = 1;
-			}
+			puntaje -= Integer.compare(arg0.getPrecio(), arg1.getPrecio());
 		}
+		
+		// Si hasta ahora son iguales se compara por tiempo
 		if (puntaje == 0) {
-			if (arg0.getTiempoTotal() > arg1.getTiempoTotal()) {
-				puntaje = -1;
-			} else {
-				puntaje = 1;
-			}
+			puntaje -= Double.compare(arg0.getTiempoTotal(), arg1.getTiempoTotal());
 		}
 				
 		return puntaje;

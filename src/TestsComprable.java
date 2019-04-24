@@ -7,16 +7,16 @@ import org.junit.Test;
 public class TestsComprable {
 	
 	@Test
-	public void puedoCrearAtraccionMoriaYTieneCostoTiempoYTipoCorrecto() {
+	public void puedoCrearAtraccionMoriaYTieneCostoTiempoYPrioridadCorrecto() {
 		Comprable atraccion = new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura);
 		Assert.assertEquals(10, atraccion.getPrecio());
 		Assert.assertEquals(2.0, atraccion.getTiempoTotal(), 0.1);
-		Assert.assertEquals(TipoDeComprable.Atraccion, atraccion.getTipoDeComprable());
+		Assert.assertEquals(Prioridad.Baja, atraccion.getPrioridad());
 		Assert.assertEquals(TipoDeAtraccion.Aventura, atraccion.getTipoDeAtraccion());
 	}
 	
 	@Test
-	public void puedoCrearPromocionYTieneCostoTiempoYTipoCorrecto() {
+	public void puedoCrearPromocionYTieneCostoTiempoYPrioridadCorrecto() {
 		Atraccion[] comprables = new Atraccion[3];
 		comprables[0] = new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura);
 		comprables[1] = new Atraccion("Mordor", 25, 3.0, 4, TipoDeAtraccion.Aventura);
@@ -26,7 +26,7 @@ public class TestsComprable {
 		
 		Assert.assertEquals(38, comprable.getPrecio());
 		Assert.assertEquals(9.0, comprable.getTiempoTotal(), 0.1);
-		Assert.assertEquals(TipoDeComprable.Promocion, comprable.getTipoDeComprable());
+		Assert.assertEquals(Prioridad.Alta, comprable.getPrioridad());
 		Assert.assertEquals(TipoDeAtraccion.Aventura, comprable.getTipoDeAtraccion());
 	}
 	

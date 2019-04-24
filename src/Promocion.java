@@ -5,7 +5,7 @@ public class Promocion extends Comprable {
 	private Atraccion[] atracciones;
 	
 	Promocion(String nombre, boolean estaVigente, Atraccion[] atracciones) {
-		super(nombre, TipoDeComprable.Promocion);
+		super(nombre, Prioridad.Alta);
 		this.atracciones = atracciones;
 		this.estaVigente = estaVigente;
 	}
