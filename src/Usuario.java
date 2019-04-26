@@ -10,16 +10,32 @@ import org.junit.platform.commons.util.ToStringBuilder;
 
 public class Usuario {
 
-	private static int presupuesto;
+	protected static int presupuesto;
 	private static double tiempoDisponible;
-	private static String tipoDeAtraccionPreferida;
+	private static TipoDeAtraccion tipoDeAtraccionPreferida;
 	private ArrayList<Comprable> comprados;
 	private static String nombre;
 	private static String usuario;
-	private static TipoDeAtraccion atraccion;
+	
 
 	public static String getNombre() {
 		return nombre;
+	}
+	public static void lectorDeUsuario() throws IOException {
+		FileReader archivo = new FileReader("src\\usuarios");
+		BufferedReader lector = new BufferedReader(archivo);
+
+		String primeraLinea = lector.readLine();
+		StringTokenizer st = new StringTokenizer(primeraLinea, ",");
+		st.nextToken();
+		if (st.hasMoreTokens()) {
+			nombre = st.nextToken();
+			presupuesto = Integer.parseInt(st.nextToken());
+			tiempoDisponible = Double.parseDouble(st.nextToken());
+			tipoDeAtraccionPreferida = TipoDeAtraccion.valueOf(st.nextToken());
+		}
+
+		lector.close();
 	}
 
 	public static int getPresupuesto() {
@@ -32,8 +48,7 @@ public class Usuario {
 
 	public static TipoDeAtraccion getTipoDeAtraccion() {
 
-		atraccion = TipoDeAtraccion.valueOf(tipoDeAtraccionPreferida);
-		return atraccion;
+		return tipoDeAtraccionPreferida;
 	}
 
 	public void agregarComprable(Comprable compra) {
@@ -53,8 +68,10 @@ public class Usuario {
 				+ "\nAtraccion Favorita: " + tipoDeAtraccionPreferida;
 		return usuario;
 	}
-
-	public static void main(String[] args) throws IOException {
+	
+	
+}	
+	/*public static void main(String[] args) throws IOException {
 		FileReader archivo = new FileReader("src\\usuarios");
 		BufferedReader lector = new BufferedReader(archivo);
 
