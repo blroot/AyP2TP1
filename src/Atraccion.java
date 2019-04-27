@@ -21,23 +21,20 @@ public class Atraccion extends Comprable {
 
 	@Override
 	public boolean puedeAdquirir(Usuario usuario) {
-		if(usuario.getPresupuesto()>getPrecio()&&usuario.getTiempoDisponible()>getTiempoTotal()) {
-			
-		} else if(!(usuario.getPresupuesto()>getPrecio())) {
-			System.err.println();//falta la excepcion, en general
-		} else {
-			
+		if (usuario.getPresupuesto() < this.getPrecio() || usuario.getTiempoDisponible() < this.getTiempoTotal()) {
+			return false;
 		}
-		return false;
+		
+		return true;
 	}
 
 	@Override
 	public void vender(Usuario usuario) {
+		// TODO: si no se le puede vender lanzar excepcion
 		if(puedeAdquirir(usuario)) {
 			usuario.agregarComprable(this);
+			this.cupoDiario--;
 		}
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -52,7 +49,11 @@ public class Atraccion extends Comprable {
 
 	@Override
 	public String toString() {
-		return super.getNombre() + " " + this.tipoDeAtraccion + " " + this.getPrecio() + " " + this.promedioDeTiempo;
+		return "Nombre: " + super.getNombre() 
+			+ "\nTipo: " + this.tipoDeAtraccion 
+			+ "\nPrecio: " + this.getPrecio() 
+			+ "\nPromedio de Tiempo: " + this.promedioDeTiempo 
+			+ "\nCupo: " + this.cupoDiario;
 	}
 
 }
