@@ -7,6 +7,8 @@ public class Usuario {
 	private TipoDeAtraccion tipoDeAtraccionPreferida;
 	private ArrayList<Comprable> comprados;
 	private String nombre;
+	private int dineroGastado;
+	private double tiempoGastado;
 	
 	Usuario(String nombre, int presupuesto, double tiempoDisponible, TipoDeAtraccion tipoDeAtraccionPreferida) {
 		this.comprados = new ArrayList<Comprable>();
@@ -14,6 +16,8 @@ public class Usuario {
 		this.presupuesto = presupuesto;
 		this.tiempoDisponible = tiempoDisponible;
 		this.tipoDeAtraccionPreferida = tipoDeAtraccionPreferida;
+		dineroGastado=0;
+		tiempoGastado=0;
 	}
 
 	public String getNombre() {
@@ -36,11 +40,27 @@ public class Usuario {
 		return this.comprados;
 	}
 
+	public void getNombresDeComprados() {
+		for (Comprable comprable : comprados) {
+			System.out.println(comprable.getNombre());
+		}
+	}
+	//agregue atributos de tiempo y dinero gastado, con sus get
 	public void agregarComprable(Comprable compra) {
 		if (compra.puedeAdquirir(this)) {
 			this.comprados.add(compra);
 			restarRecursosUtilizados(compra.getPrecio(), compra.getTiempoTotal());
+			dineroGastado+=compra.getPrecio();
+			tiempoGastado+=compra.getTiempoTotal();
 		}
+	}
+	
+	public double getTiempoGastado() {
+		return this.tiempoGastado;
+	}
+	
+	public int getDineroGastado() {
+		return this.dineroGastado;
 	}
 
 	private void restarRecursosUtilizados(int precio, double tiempoNecesario) {

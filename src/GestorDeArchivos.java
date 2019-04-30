@@ -77,5 +77,9 @@ public abstract class GestorDeArchivos {
 		Atraccion nuevaAtraccion = new Atraccion(nombre, costo, tiempo, cupo, tipo);
 		comprables.add(nuevaAtraccion);	
 	}
+	
+	public static void escribirArchivoDeSalida(ArrayList<Usuario> usuarios, ArrayList<Comprable> comprables) {
+		
+	}
 
 }
