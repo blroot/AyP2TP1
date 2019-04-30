@@ -15,12 +15,14 @@ public abstract class Sistema {
 		System.out.println("Los siguientes Usuarios fueron cargados...");
 		while (iteradorDeUsuarios.hasNext()) {
 			System.out.println(iteradorDeUsuarios.next().toString());
+			System.out.println();
 		}
 		
 		Iterator<Comprable> iteradorDeComprables = comprables.iterator();
 		System.out.println("Los/as siguientes Atracciones/Promociones fueron cargadas/os...");
 		while (iteradorDeComprables.hasNext()) {
 			System.out.println(iteradorDeComprables.next().toString());
+			System.out.println();
 		}
 		
 	}
