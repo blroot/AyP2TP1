@@ -41,7 +41,7 @@ public abstract class Sistema {
 		Scanner entrada=new Scanner(System.in);
 		//se recorre usuario por usuario
 		for(Usuario usuario: usuarios) {
-			System.out.println("Hola " + usuario.getNombre());
+			System.out.println("\nHola " + usuario.getNombre());
 			//se ordenan las atracciones cargadas
 			Comparator<Comprable> comparador = new ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo(usuario.getTipoDeAtraccion());
 			Collections.sort(comprables,comparador);
@@ -55,8 +55,12 @@ public abstract class Sistema {
 					if(entrada.hasNext()) {
 						//si pongo el "Aceptar" funciona mal
 						if(entrada.next().equals("aceptar")) {
-							comprable.vender(usuario);						
-							System.out.println("Gracias por tu compra!");
+							try {
+								comprable.vender(usuario);
+							} catch (UsuarioNoPuedeAdquirirComprable e) {
+								System.out.println(e);
+							}						
+							System.out.println("\nGracias por tu compra!");
 						if(entrada.nextLine().equals("rechazar")) {
 								break;
 							}
@@ -65,10 +69,10 @@ public abstract class Sistema {
 				}
 			}
 			//se imprime el itinerario y aviso que paso al otro usuario
-			System.out.println("Itinerario del usuario: "+usuario.getNombre()+"\nDinero gastado: "+usuario.getDineroGastado()
+			System.out.println("\nItinerario del usuario: "+usuario.getNombre()+"\nDinero gastado: "+usuario.getDineroGastado()
 								+"\nTiempo necesario: "+usuario.getTiempoGastado()+"\nCompró: ");
 			usuario.getNombresDeComprados();
-			System.err.println("Pasa al otro usuario");
+			System.out.println("\nPasa al otro usuario");
 		}
 		entrada.close();
 	}

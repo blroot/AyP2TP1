@@ -40,9 +40,15 @@ public class Promocion extends Comprable {
 	}
 
 	@Override
-	public void vender(Usuario usuario) {
-		// TODO Auto-generated method stub
-		
+	public void vender(Usuario usuario) throws UsuarioNoPuedeAdquirirComprable {
+		for (int i = 0; i < this.atracciones.length; i++) {
+			if(puedeAdquirir(usuario)) {
+				usuario.agregarComprable(this);
+				this.atracciones[i].disminuirCupoDiario();
+			} else {
+				throw new UsuarioNoPuedeAdquirirComprable("El usuario no tiene recursos suficientes para comprar el comprable o comprable no tiene cupo disponible");
+			}
+		}
 	}
 
 	@Override

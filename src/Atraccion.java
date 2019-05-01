@@ -13,6 +13,10 @@ public class Atraccion extends Comprable {
 		this.cupoDiario = cupo;
 		this.tipoDeAtraccion = tipo;
 	}
+	
+	public void disminuirCupoDiario() {
+		this.cupoDiario--;
+	}
 
 	@Override
 	public int getPrecio() {
@@ -31,11 +35,12 @@ public class Atraccion extends Comprable {
 	}
 
 	@Override
-	public void vender(Usuario usuario) {
-		// TODO: si no se le puede vender lanzar excepcion
+	public void vender(Usuario usuario) throws UsuarioNoPuedeAdquirirComprable {
 		if(puedeAdquirir(usuario)) {
 			usuario.agregarComprable(this);
 			this.cupoDiario--;
+		} else {
+			throw new UsuarioNoPuedeAdquirirComprable("El usuario no tiene recursos suficientes para comprar el comprable o comprable no tiene cupo disponible");
 		}
 	}
 
