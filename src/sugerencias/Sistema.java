@@ -1,3 +1,4 @@
+package sugerencias;
 import java.io.IOException;
 import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public abstract class Sistema {
 				if(comprable.puedeAdquirir(usuario)) {
 					//ofrece atraccion
 					System.out.println("Tenemos la siguiente oferta para vos: \n" + comprable.toString());
-					System.out.println("¿Aceptas la oferta?: <aceptar/rechazar>");
+					System.out.println("ï¿½Aceptas la oferta?: <aceptar/rechazar>");
 					if(entrada.hasNext()) {
 						//si pongo el "Aceptar" funciona mal
 						if(entrada.next().equals("aceptar")) {
@@ -70,7 +71,7 @@ public abstract class Sistema {
 			}
 			//se imprime el itinerario y aviso que paso al otro usuario
 			System.out.println("\nItinerario del usuario: "+usuario.getNombre()+"\nDinero gastado: "+usuario.getDineroGastado()
-								+"\nTiempo necesario: "+usuario.getTiempoGastado()+"\nCompró: ");
+								+"\nTiempo necesario: "+usuario.getTiempoGastado()+"\nComprï¿½: ");
 			usuario.getNombresDeComprados();
 			System.out.println("\nPasa al otro usuario");
 		}

@@ -1,3 +1,4 @@
+package sugerencias;
 import java.util.Comparator;
 
 public class ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo implements Comparator<Comprable> {
@@ -14,7 +15,7 @@ public class ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo implements Co
 		
 		int puntaje = 0;
 		
-		// Primero se compara por tipo de atracción
+		// Primero se compara por tipo de atracciï¿½n
 		if (arg0.getTipoDeAtraccion() == this.tipoDeAtraccion && arg1.getTipoDeAtraccion() != this.tipoDeAtraccion) {
 			puntaje = -1;
 		} else if (arg1.getTipoDeAtraccion() == this.tipoDeAtraccion && arg0.getTipoDeAtraccion() != this.tipoDeAtraccion) {

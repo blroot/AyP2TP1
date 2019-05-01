@@ -1,10 +1,11 @@
+package sugerencias;
 
 public class Promocion extends Comprable {
 	
 	private boolean estaVigente;
 	private Atraccion[] atracciones;
 	
-	Promocion(String nombre, boolean estaVigente, Atraccion[] atracciones) {
+	public Promocion(String nombre, boolean estaVigente, Atraccion[] atracciones) {
 		super(nombre, Prioridad.Alta);
 		this.atracciones = atracciones;
 		this.estaVigente = estaVigente;
@@ -28,7 +29,7 @@ public class Promocion extends Comprable {
 			return false;
 		}
 		
-		// Se recorre el arreglo de atracciones y se comprueba si ya lo adquirió antes
+		// Se recorre el arreglo de atracciones y se comprueba si ya lo adquiriï¿½ antes
 		for (int i = 0; i < this.atracciones.length; i++) {
 			if (usuario.getPresupuesto() < this.atracciones[i].getPrecio() 
 					|| usuario.getTiempoDisponible() < this.atracciones[i].getTiempoTotal()

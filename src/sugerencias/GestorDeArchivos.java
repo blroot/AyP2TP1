@@ -1,3 +1,4 @@
+package sugerencias;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,7 +20,7 @@ public abstract class GestorDeArchivos {
 			String unaLinea;
 			
 			// Solo debug
-			//System.out.println("Leyendo archivo de configuración...");
+			//System.out.println("Leyendo archivo de configuraciï¿½n...");
 					
 			while ((unaLinea = lector.readLine()) != null) {
 				posicion++;
@@ -42,9 +43,9 @@ public abstract class GestorDeArchivos {
 			archivo.close();
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("No se econtró el archivo");	
+			System.out.println("No se econtrï¿½ el archivo");	
 		} catch (NoSuchElementException e) {
-			System.out.println("Linea mal formada en posición: " + posicion);	
+			System.out.println("Linea mal formada en posiciï¿½n: " + posicion);	
 		} catch (IOException e) {
 			System.out.println("No se pudo interpretar la linea: " + posicion);
 		} 	

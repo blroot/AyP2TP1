@@ -1,3 +1,4 @@
+package sugerencias;
 
 public class Atraccion extends Comprable {
 	
@@ -6,7 +7,7 @@ public class Atraccion extends Comprable {
 	private int cupoDiario;
 	private TipoDeAtraccion tipoDeAtraccion;
 
-	Atraccion(String nombre, int costo, double tiempo, int cupo, TipoDeAtraccion tipo) {
+	public Atraccion(String nombre, int costo, double tiempo, int cupo, TipoDeAtraccion tipo) {
 		super(nombre, Prioridad.Baja);
 		this.costo = costo;
 		this.promedioDeTiempo = tiempo;

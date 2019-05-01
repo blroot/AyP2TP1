@@ -1,3 +1,4 @@
+package sugerencias;
 
 public enum Prioridad {
 	

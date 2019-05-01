@@ -1,7 +1,8 @@
+package sugerencias;
 
 public class UsuarioNoPuedeAdquirirComprable extends Exception {
 	
-	UsuarioNoPuedeAdquirirComprable(String e) {
+	public UsuarioNoPuedeAdquirirComprable(String e) {
 		super(e);
 	}
 

@@ -1,3 +1,4 @@
+package sugerencias;
 import java.util.ArrayList;
 
 public class Usuario {
@@ -10,7 +11,7 @@ public class Usuario {
 	private int dineroGastado;
 	private double tiempoGastado;
 	
-	Usuario(String nombre, int presupuesto, double tiempoDisponible, TipoDeAtraccion tipoDeAtraccionPreferida) {
+	public Usuario(String nombre, int presupuesto, double tiempoDisponible, TipoDeAtraccion tipoDeAtraccionPreferida) {
 		this.comprados = new ArrayList<Comprable>();
 		this.nombre = nombre;
 		this.presupuesto = presupuesto;

@@ -1,8 +1,19 @@
+package tests;
 import java.util.Arrays;
 import java.util.Comparator;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import sugerencias.Atraccion;
+import sugerencias.ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo;
+import sugerencias.Comprable;
+import sugerencias.Prioridad;
+import sugerencias.Promocion;
+import sugerencias.PromocionAbsoluta;
+import sugerencias.PromocionPorcentual;
+import sugerencias.PromocionUnoGratuito;
+import sugerencias.TipoDeAtraccion;
 
 public class TestsComprable {
 	

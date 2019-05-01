@@ -1,9 +1,10 @@
+package sugerencias;
 
 public class PromocionAbsoluta extends Promocion {
 	
 	private int costoTotal;
 
-	PromocionAbsoluta(String nombre, boolean estaVigente, Atraccion[] atracciones, int costoTotal) {
+	public PromocionAbsoluta(String nombre, boolean estaVigente, Atraccion[] atracciones, int costoTotal) {
 		super(nombre, estaVigente, atracciones);
 		this.costoTotal = costoTotal;
 	}

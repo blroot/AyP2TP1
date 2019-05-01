@@ -1,10 +1,11 @@
+package sugerencias;
 
 public abstract class Comprable {
 
 	private Prioridad prioridad;
 	private String nombre;
 	
-	Comprable(String nombre, Prioridad prioridad) {
+	public Comprable(String nombre, Prioridad prioridad) {
 		this.nombre = nombre;
 		this.prioridad = prioridad;
 	}
