@@ -21,7 +21,9 @@ public class Atraccion extends Comprable {
 
 	@Override
 	public boolean puedeAdquirir(Usuario usuario) {
-		if (usuario.getPresupuesto() < this.getPrecio() || usuario.getTiempoDisponible() < this.getTiempoTotal()) {
+		if (usuario.getPresupuesto() < this.getPrecio() 
+				|| usuario.getTiempoDisponible() < this.getTiempoTotal()
+				|| usuario.getComprados().contains(this)) {
 			return false;
 		}
 		

@@ -17,6 +17,8 @@ public abstract class Sistema {
 		ArrayList<Comprable> comprables = new ArrayList<Comprable>();
 		
 		GestorDeArchivos.leerArchivoDeConfiguracion(usuarios, comprables);
+		
+		/* Esto es solo para debug
 		//cambie de iterator a listIterator
 		ListIterator<Usuario> iteradorDeUsuarios = usuarios.listIterator();
 		System.out.println("Los siguientes Usuarios fueron cargados...");
@@ -31,26 +33,30 @@ public abstract class Sistema {
 			System.out.println(iteradorDeComprables.next().toString());
 			System.out.println();
 		}
+		*/
+		
 		////////////////////////////////////
 		////////////////////////////////////
 		//creo scanner para aceptar/rechazar
 		Scanner entrada=new Scanner(System.in);
 		//se recorre usuario por usuario
 		for(Usuario usuario: usuarios) {
+			System.out.println("Hola " + usuario.getNombre());
 			//se ordenan las atracciones cargadas
 			Comparator<Comprable> comparador = new ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo(usuario.getTipoDeAtraccion());
 			Collections.sort(comprables,comparador);
 			//se iteran las atracciones
 			for (Comprable comprable : comprables) {
 				//si no tiene atraccion repetida y puede adquirir, pasa
-				if(!usuario.getComprados().contains(comprable)&&comprable.puedeAdquirir(usuario)) {
+				if(comprable.puedeAdquirir(usuario)) {
 					//ofrece atraccion
-					System.out.println("Quiere comprar:"+comprable.toString());
+					System.out.println("Tenemos la siguiente oferta para vos: \n" + comprable.toString());
+					System.out.println("¿Aceptas la oferta?: <aceptar/rechazar>");
 					if(entrada.hasNext()) {
 						//si pongo el "Aceptar" funciona mal
 						if(entrada.next().equals("aceptar")) {
-							usuario.agregarComprable(comprable);
-							System.err.println("Tiempo disponible: "+usuario.getTiempoDisponible());
+							comprable.vender(usuario);						
+							System.out.println("Gracias por tu compra!");
 						if(entrada.nextLine().equals("rechazar")) {
 								break;
 							}

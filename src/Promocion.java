@@ -24,8 +24,19 @@ public class Promocion extends Comprable {
 
 	@Override
 	public boolean puedeAdquirir(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return false;
+		if (!this.estaVigente) {
+			return false;
+		}
+		
+		// Se recorre el arreglo de atracciones y se comprueba si ya lo adquirió antes
+		for (int i = 0; i < this.atracciones.length; i++) {
+			if (usuario.getPresupuesto() < this.atracciones[i].getPrecio() 
+					|| usuario.getTiempoDisponible() < this.atracciones[i].getTiempoTotal()
+					|| usuario.getComprados().contains(this.atracciones[i])) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override

@@ -18,7 +18,8 @@ public abstract class GestorDeArchivos {
 			BufferedReader lector = new BufferedReader(archivo);
 			String unaLinea;
 			
-			System.out.println("Leyendo archivo de configuración...");
+			// Solo debug
+			//System.out.println("Leyendo archivo de configuración...");
 					
 			while ((unaLinea = lector.readLine()) != null) {
 				posicion++;
@@ -57,7 +58,9 @@ public abstract class GestorDeArchivos {
 		double tiempoDisponible = Double.parseDouble(st.nextToken(","));
 		TipoDeAtraccion tipoDeAtraccionPreferida = TipoDeAtraccion.valueOf(st.nextToken());
 		
-		System.out.println("Cargando nuevo Usuario...");
+		
+		// Solo debug
+		//System.out.println("Cargando nuevo Usuario...");
 		
 		Usuario nuevoUsuario = new Usuario(nombre, presupuesto, tiempoDisponible, tipoDeAtraccionPreferida);
 		usuarios.add(nuevoUsuario);	
@@ -72,7 +75,8 @@ public abstract class GestorDeArchivos {
 		int cupo = Integer.parseInt(st.nextToken(","));
 		TipoDeAtraccion tipo = TipoDeAtraccion.valueOf(st.nextToken(","));
 		
-		System.out.println("Cargando nueva Atraccion...");
+		// Solo debug
+		//System.out.println("Cargando nueva Atraccion...");
 		
 		Atraccion nuevaAtraccion = new Atraccion(nombre, costo, tiempo, cupo, tipo);
 		comprables.add(nuevaAtraccion);	

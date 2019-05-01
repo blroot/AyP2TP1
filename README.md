@@ -1,7 +1,7 @@
 # Algoritmos y Programación II : TP 1
 
 Integrantes: 
-- Di Gio Gonzalo
+- Di Dio Gonzalo
 - Lottero Bruno
 - Lovera Alex
 - Posta Daniel
@@ -58,19 +58,44 @@ Es un enumerador para establecer una prioridad a la hora de comparar dos objetos
 
 ##### PromocionAbsoluta.java
 
+Constructor: `PromocionAbsoluta(String nombre, boolean estaVigente, Atraccion[] atracciones, int costoTotal)`
+
+Extiende la clase Promocion, sobreescribe el método getPrecio() de Promocion para especificar un precio costoTotal por el paquete.
+
 ##### PromocionPorcentual.java
+
+Constructor: `PromocionPorcentual(String nombre, boolean estaVigente, Atraccion[] atracciones, double porcentajeDeDescuento)`
+
+Extiende la clase Promocion, sobreescribe el método getPrecio() de Promocion para descontar porcentajeDeDescuento del precio total del paquete.
 
 ##### PromocionUnoGratuito.java
 
+Constructor: `PromocionUnoGratuito(String nombre, boolean estaVigente, Atraccion[] atracciones, Atraccion obtieneGratis)`
+
+Extiende la clase Promocion, guarda en un atributo la referencia al objeto de tipo Atraccion que se obtiene gratis al comprar el paquete.
+Sobreescribe el método getPrecio() para descontar del precio total el precio de la atraccion que se obtiene gratis.
+
 ##### Sistema.java
+
+Es la clase que contiene el punto de entrada (main). De aquí se obtiene el ejecutable de la aplicación.
 
 ##### TestComprable.java
 
+Pruebas unitarias de la clase Comprable e hijos.
+
 ##### TestUsuario.java
+
+Pruebas unitarias de la clase Usuario.
 
 ##### TipoDeAtraccion.java
 
+Enumera todos los tipos de Atraccion del sistema (Aventura, Paisaje, Degustacion)
+
 ##### Usuario.java
+
+Constructor: `Usuario(String nombre, int presupuesto, double tiempoDisponible, TipoDeAtraccion tipoDeAtraccionPreferida)`
+
+Representa a un usuario del sistema, con su nombre, tipo de atracción preferida, presupuesto y tiempo para gastar.
 
 ## Conclusiones
 
