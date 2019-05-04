@@ -2,15 +2,21 @@ package sugerencias;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
+
+import org.omg.CORBA.DoubleSeqHelper;
 
 
 public abstract class GestorDeArchivos {
 	
-	public static void leerArchivoDeConfiguracion(ArrayList<Usuario> usuarios, ArrayList<Comprable> comprables) {
+	public static void leerArchivoDeConfiguracion(ArrayList<Usuario> usuarios, ArrayList<Comprable> comprables, 
+			HashMap<String, Atraccion> mapaDeAtracciones) {
 		
 		int posicion = 0;
 		
@@ -35,7 +41,11 @@ public abstract class GestorDeArchivos {
 					
 				} else if (tipoDeObjeto.equalsIgnoreCase("Atraccion")) {
 					
-					crearAtraccion(DatosDeObjeto, comprables);
+					crearAtraccion(DatosDeObjeto, comprables, mapaDeAtracciones);
+					
+				} else if (tipoDeObjeto.equalsIgnoreCase("PromocionPorcentual")) {
+					
+					crearPromocion(DatosDeObjeto, tipoDeObjeto, comprables, mapaDeAtracciones);
 					
 				}
 				
@@ -43,7 +53,7 @@ public abstract class GestorDeArchivos {
 			archivo.close();
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("No se econtr� el archivo");	
+			System.out.println("No se econtr� el archivo de configuración");	
 		} catch (NoSuchElementException e) {
 			System.out.println("Linea mal formada en posici�n: " + posicion);	
 		} catch (IOException e) {
@@ -51,6 +61,54 @@ public abstract class GestorDeArchivos {
 		} 	
 	}
 	
+	private static void crearPromocion(String datosDeObjeto, String tipoDePromocion, 
+			ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeAtracciones) {
+		StringTokenizer st = new StringTokenizer(datosDeObjeto);
+		
+		String estaVigente = st.nextToken(",");
+		String nombre = st.nextToken(",");
+		String arg = st.nextToken(",");
+		ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(); 
+		
+		// Guardo las atracciones en una lista
+		while (st.hasMoreTokens()) {
+			Atraccion atraccion = mapaDeAtracciones.get(st.nextToken(","));
+			atracciones.add(atraccion);
+		}
+		
+		if (tipoDePromocion.equalsIgnoreCase("PromocionPorcentual")) {
+			try {
+				Comprable nuevoComprable = new PromocionPorcentual(nombre, Boolean.parseBoolean(estaVigente), 
+						atracciones, Double.parseDouble(arg));
+				comprables.add(nuevoComprable);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
+				System.out.println("Promoción mal configurada");
+			}
+		} else if (tipoDePromocion.equalsIgnoreCase("PromocionAbsoluta")) {
+			try {
+				Comprable nuevoComprable = new PromocionAbsoluta(nombre, Boolean.parseBoolean(estaVigente), 
+						atracciones, Integer.parseInt(arg));
+				comprables.add(nuevoComprable);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
+				System.out.println("Promoción mal configurada");
+			}
+		} else if (tipoDePromocion.equalsIgnoreCase("PromocionUnoGratuito")) {
+			try {
+				Comprable nuevoComprable = new PromocionUnoGratuito(nombre, Boolean.parseBoolean(estaVigente), 
+						atracciones, mapaDeAtracciones.get(arg));
+				comprables.add(nuevoComprable);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
+				System.out.println("Promoción mal configurada");
+			}
+		}
+	}
+
 	private static void crearUsuario(String datosDeObjeto, ArrayList<Usuario> usuarios) {
 		StringTokenizer st = new StringTokenizer(datosDeObjeto);
 		
@@ -67,7 +125,7 @@ public abstract class GestorDeArchivos {
 		usuarios.add(nuevoUsuario);	
 	}
 	
-	private static void crearAtraccion(String datosDeObjeto, ArrayList<Comprable> comprables) {
+	private static void crearAtraccion(String datosDeObjeto, ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeComprables) {
 		StringTokenizer st = new StringTokenizer(datosDeObjeto);
 		
 		String nombre = st.nextToken(",");
@@ -80,11 +138,30 @@ public abstract class GestorDeArchivos {
 		//System.out.println("Cargando nueva Atraccion...");
 		
 		Atraccion nuevaAtraccion = new Atraccion(nombre, costo, tiempo, cupo, tipo);
-		comprables.add(nuevaAtraccion);	
+		comprables.add(nuevaAtraccion);
+		mapaDeComprables.put(nuevaAtraccion.getNombre(), nuevaAtraccion);
 	}
 	
-	public static void escribirArchivoDeSalida(ArrayList<Usuario> usuarios, ArrayList<Comprable> comprables) {
-		
+	public static void escribirArchivoDeSalida(ArrayList<Usuario> usuarios) {
+		try {
+			FileWriter escritor = new FileWriter("src\\resumen");
+			for (Usuario usuario: usuarios) {
+				escritor.write("--- Resumen de compra de usuario " + usuario.getNombre() + "---\n");
+				escritor.write(usuario.toString());
+				escritor.write("\nDetalle de las atracciones/promociones compradas: \n");
+				for (Comprable comprable: usuario.getComprados()) {
+					escritor.write(comprable.toString()+"\n");
+				}
+				escritor.write("\nTotal a pagar: " + usuario.getDineroGastado());
+				escritor.write("\nTotal de tiempo estimado para el itinerario: " + usuario.getTiempoGastado());
+				escritor.write("\n");
+			}
+			escritor.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("No se econtr� el archivo de salida");	
+		} catch (IOException e) {
+			System.out.println("Error al escribir linea");
+		} 	
 	}
 
 }

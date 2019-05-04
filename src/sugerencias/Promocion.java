@@ -1,12 +1,23 @@
 package sugerencias;
 
+import java.util.ArrayList;
+
 public class Promocion extends Comprable {
 	
 	private boolean estaVigente;
-	private Atraccion[] atracciones;
+	private ArrayList<Atraccion> atracciones;
 	
-	public Promocion(String nombre, boolean estaVigente, Atraccion[] atracciones) {
+	public Promocion(String nombre, boolean estaVigente, ArrayList<Atraccion> atracciones) throws PromocionTieneUnSoloTipoDeAtraccion {
 		super(nombre, Prioridad.Alta);
+		
+		TipoDeAtraccion tipoDeAtraccionPrimaria = atracciones.get(0).getTipoDeAtraccion();
+		
+		for (Atraccion atraccion: atracciones) {
+			if (!tipoDeAtraccionPrimaria.equals(atraccion.getTipoDeAtraccion())) {
+				throw new PromocionTieneUnSoloTipoDeAtraccion("Solo se permiten atracciones de un solo tipo");
+			}
+		}
+		
 		this.atracciones = atracciones;
 		this.estaVigente = estaVigente;
 	}
@@ -16,8 +27,8 @@ public class Promocion extends Comprable {
 		
 		int precioTotal = 0;
 		
-		for (int i = 0; i < this.atracciones.length; i++) {
-			precioTotal += this.atracciones[i].getPrecio();
+		for (Atraccion atraccion: this.atracciones) {
+			precioTotal += atraccion.getPrecio();
 		}
 
 		return precioTotal;
@@ -29,26 +40,26 @@ public class Promocion extends Comprable {
 			return false;
 		}
 		
-		// Se recorre el arreglo de atracciones y se comprueba si ya lo adquiri� antes
-		for (int i = 0; i < this.atracciones.length; i++) {
-			if (usuario.getPresupuesto() < this.atracciones[i].getPrecio() 
-					|| usuario.getTiempoDisponible() < this.atracciones[i].getTiempoTotal()
-					|| usuario.getComprados().contains(this.atracciones[i])) {
+		for (Atraccion atraccion: this.atracciones) {
+			if (usuario.getPresupuesto() < atraccion.getPrecio() 
+					|| usuario.getTiempoDisponible() < atraccion.getTiempoTotal()
+					|| usuario.getComprados().contains(atraccion)) {
 				return false;
 			}
 		}
+		
 		return true;
 	}
 
 	@Override
 	public void vender(Usuario usuario) throws UsuarioNoPuedeAdquirirComprable {
-		for (int i = 0; i < this.atracciones.length; i++) {
-			if(puedeAdquirir(usuario)) {
-				usuario.agregarComprable(this);
-				this.atracciones[i].disminuirCupoDiario();
-			} else {
-				throw new UsuarioNoPuedeAdquirirComprable("El usuario no tiene recursos suficientes para comprar el comprable o comprable no tiene cupo disponible");
+		if(this.puedeAdquirir(usuario)) {
+			usuario.agregarComprable(this);
+			for (Atraccion atraccion: atracciones) {
+				atraccion.disminuirCupoDiario();
 			}
+		} else {
+			throw new UsuarioNoPuedeAdquirirComprable("El usuario no tiene recursos suficientes para comprar el comprable o comprable no tiene cupo disponible");
 		}
 	}
 
@@ -57,8 +68,8 @@ public class Promocion extends Comprable {
 		
 		double tiempoTotal = 0.0;
 		
-		for (int i = 0; i < this.atracciones.length; i++) {
-			tiempoTotal += this.atracciones[i].getTiempoTotal();
+		for (Atraccion atraccion: this.atracciones) {
+			tiempoTotal += atraccion.getTiempoTotal();
 		}
 
 		return tiempoTotal;
@@ -66,16 +77,19 @@ public class Promocion extends Comprable {
 
 	@Override
 	public TipoDeAtraccion getTipoDeAtraccion() {
-		// TODO: Revisar si esto cumple
-		return this.atracciones[0].getTipoDeAtraccion();
+		return this.atracciones.get(0).getTipoDeAtraccion();
 	}
 
 	@Override
 	public String toString() {
-		return super.getNombre() + " " + this.getTipoDeAtraccion() + " " + this.getPrecio() + " " + this.getTiempoTotal();
+		return "Promoción: " + super.getNombre() + " " 
+				+ "\nTipo: " + this.getTipoDeAtraccion() + " " 
+				+ "\nPrecio total " + this.getPrecio() + " " 
+				+ "\nTiempo promedio total: " + this.getTiempoTotal() + " "
+				+ "\nAtracciones incluídas: \n" + this.getAtracciones().toString() ;
 	}
 
-	public Atraccion[] getAtracciones() {
+	public ArrayList<Atraccion> getAtracciones() {
 		return this.atracciones;
 	}
 

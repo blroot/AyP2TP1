@@ -1,13 +1,9 @@
 package sugerencias;
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
-import java.util.ListIterator;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public abstract class Sistema {
@@ -16,25 +12,9 @@ public abstract class Sistema {
 		
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		ArrayList<Comprable> comprables = new ArrayList<Comprable>();
+		HashMap<String, Atraccion> mapaDeAtracciones = new HashMap<String, Atraccion>();
 		
-		GestorDeArchivos.leerArchivoDeConfiguracion(usuarios, comprables);
-		
-		/* Esto es solo para debug
-		//cambie de iterator a listIterator
-		ListIterator<Usuario> iteradorDeUsuarios = usuarios.listIterator();
-		System.out.println("Los siguientes Usuarios fueron cargados...");
-		while (iteradorDeUsuarios.hasNext()) {
-			System.out.println(iteradorDeUsuarios.next().toString());
-			System.out.println();
-		}
-		//cambie de iterator a listIterator
-		ListIterator<Comprable> iteradorDeComprables = comprables.listIterator();
-		System.out.println("Los/as siguientes Atracciones/Promociones fueron cargadas/os...");
-		while (iteradorDeComprables.hasNext()) {
-			System.out.println(iteradorDeComprables.next().toString());
-			System.out.println();
-		}
-		*/
+		GestorDeArchivos.leerArchivoDeConfiguracion(usuarios, comprables, mapaDeAtracciones);
 		
 		////////////////////////////////////
 		////////////////////////////////////
@@ -75,6 +55,7 @@ public abstract class Sistema {
 			usuario.getNombresDeComprados();
 			System.out.println("\nPasa al otro usuario");
 		}
+		GestorDeArchivos.escribirArchivoDeSalida(usuarios);
 		entrada.close();
 	}
 	
