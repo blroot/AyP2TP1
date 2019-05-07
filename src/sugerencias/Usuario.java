@@ -47,12 +47,14 @@ public class Usuario {
 		}
 	}
 	//agregue atributos de tiempo y dinero gastado, con sus get
-	public void agregarComprable(Comprable compra) {
+	public void agregarComprable(Comprable compra) throws UsuarioNoPuedeAdquirirComprable {
 		if (compra.puedeAdquirir(this)) {
 			this.comprados.add(compra);
 			restarRecursosUtilizados(compra.getPrecio(), compra.getTiempoTotal());
 			dineroGastado+=compra.getPrecio();
 			tiempoGastado+=compra.getTiempoTotal();
+		} else {
+			throw new UsuarioNoPuedeAdquirirComprable("El usuario no tiene recursos suficientes para comprar el comprable o comprable no tiene cupo disponible");
 		}
 	}
 	

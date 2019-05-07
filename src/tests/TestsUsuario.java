@@ -10,6 +10,7 @@ import sugerencias.PromocionTieneUnSoloTipoDeAtraccion;
 import sugerencias.PromocionUnoGratuito;
 import sugerencias.TipoDeAtraccion;
 import sugerencias.Usuario;
+import sugerencias.UsuarioNoPuedeAdquirirComprable;
 
 public class TestsUsuario {
 	
@@ -36,7 +37,12 @@ public class TestsUsuario {
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Comprable atraccion = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		
-		usuario.agregarComprable(atraccion);
+		try {
+			usuario.agregarComprable(atraccion);
+		} catch (UsuarioNoPuedeAdquirirComprable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Assert.assertEquals(5, usuario.getPresupuesto());
 	}
 	
@@ -45,7 +51,12 @@ public class TestsUsuario {
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Comprable atraccion = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		
-		usuario.agregarComprable(atraccion);
+		try {
+			usuario.agregarComprable(atraccion);
+		} catch (UsuarioNoPuedeAdquirirComprable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Assert.assertEquals(atraccion, usuario.getComprados().get(0));
 	}
 	
@@ -54,7 +65,12 @@ public class TestsUsuario {
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Comprable atraccion = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		
-		usuario.agregarComprable(atraccion);
+		try {
+			usuario.agregarComprable(atraccion);
+		} catch (UsuarioNoPuedeAdquirirComprable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Assert.assertEquals(5.5, usuario.getTiempoDisponible(), 0.001);
 	}
 	
@@ -63,7 +79,12 @@ public class TestsUsuario {
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Comprable atraccion = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		
-		usuario.agregarComprable(atraccion);
+		try {
+			usuario.agregarComprable(atraccion);
+		} catch (UsuarioNoPuedeAdquirirComprable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Assert.assertFalse(atraccion.puedeAdquirir(usuario));
 	}
 		
@@ -77,7 +98,12 @@ public class TestsUsuario {
 		comprables.add(new Atraccion("Mordor", 25, 3.0, 4, TipoDeAtraccion.Aventura));
 		comprables.add(new Atraccion("Bosque Negro", 3, 4.0, 12, TipoDeAtraccion.Aventura));
 				
-		usuario.agregarComprable(atraccion);
+		try {
+			usuario.agregarComprable(atraccion);
+		} catch (UsuarioNoPuedeAdquirirComprable e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		Comprable comprable;
 		try {
@@ -105,6 +131,9 @@ public class TestsUsuario {
 			Assert.assertFalse(atraccion.puedeAdquirir(usuario));
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			e.printStackTrace();
+		} catch (UsuarioNoPuedeAdquirirComprable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -131,6 +160,9 @@ public class TestsUsuario {
 			usuario.agregarComprable(comprable);
 			Assert.assertFalse(comprable2.puedeAdquirir(usuario));
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
+			e.printStackTrace();
+		} catch (UsuarioNoPuedeAdquirirComprable e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
