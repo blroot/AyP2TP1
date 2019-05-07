@@ -31,6 +31,13 @@ public class Atraccion extends Comprable {
 				|| usuario.getComprados().contains(this)) {
 			return false;
 		}
+				
+		// Si ya adquirió la atracción retorna false
+		for (Comprable comprable: usuario.getComprados()) {
+			if (comprable.tieneOEsAtraccion(this)) {
+				return false;
+			}
+		}
 		
 		return true;
 	}
@@ -62,6 +69,11 @@ public class Atraccion extends Comprable {
 			+ "\nPrecio: " + this.getPrecio() 
 			+ "\nPromedio de Tiempo: " + this.promedioDeTiempo 
 			+ "\nCupo: " + this.cupoDiario;
+	}
+
+	@Override
+	public boolean tieneOEsAtraccion(Atraccion atraccion) {
+		return this == atraccion;
 	}
 
 }

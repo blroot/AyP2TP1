@@ -46,10 +46,12 @@ public class Promocion extends Comprable {
 			return false;
 		}
 		
-		// Si ya adquirió la atracción no puede volver a adquirir
-		for (Atraccion atraccion: this.atracciones) {
-			if (usuario.getComprados().contains(atraccion)) {
-				return false;
+		// Si ya adquirió la atracción no puede volver a adquirirla
+		for (Comprable comprable: usuario.getComprados()) {
+			for (Atraccion atraccion: this.atracciones) {
+				if (comprable.tieneOEsAtraccion(atraccion)) {
+					return false;
+				}
 			}
 		}
 		
@@ -96,6 +98,16 @@ public class Promocion extends Comprable {
 
 	public ArrayList<Atraccion> getAtracciones() {
 		return this.atracciones;
+	}
+
+	@Override
+	public boolean tieneOEsAtraccion(Atraccion atraccion) {
+		for (Atraccion atraccionDePromocion: this.atracciones) {
+			if (atraccionDePromocion == atraccion) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

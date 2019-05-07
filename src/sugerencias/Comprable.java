@@ -20,6 +20,7 @@ public abstract class Comprable {
 	
 	public abstract int getPrecio();
 	public abstract boolean puedeAdquirir(Usuario usuario);
+	public abstract boolean tieneOEsAtraccion(Atraccion atraccion);
 	public abstract void vender(Usuario usuario) throws UsuarioNoPuedeAdquirirComprable;
 	public abstract double getTiempoTotal();
 	public abstract TipoDeAtraccion getTipoDeAtraccion();

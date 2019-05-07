@@ -90,7 +90,7 @@ public class TestsUsuario {
 	
 	@Test
 	public void siAgregoPromocionAlUsuarioNoPuedeAdquirirAtraccionQueEstaEnLaPromocion() {
-		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
+		Usuario usuario = new Usuario("Carlos", 1000, 100.0, TipoDeAtraccion.Aventura);
 		Atraccion atraccion = new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura);
 					
 		ArrayList<Atraccion> comprables = new ArrayList<Atraccion>();
