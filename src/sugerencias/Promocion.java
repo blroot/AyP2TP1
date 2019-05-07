@@ -87,11 +87,11 @@ public class Promocion extends Comprable {
 
 	@Override
 	public String toString() {
-		return "Promoción: " + super.getNombre() + " " 
+		return "Promocion: " + super.getNombre() + " " 
 				+ "\nTipo: " + this.getTipoDeAtraccion() + " " 
 				+ "\nPrecio total " + this.getPrecio() + " " 
 				+ "\nTiempo promedio total: " + this.getTiempoTotal() + " "
-				+ "\nAtracciones incluídas: \n" + this.getAtracciones().toString() ;
+				+ "\nAtracciones incluidas: \n" + this.getAtracciones().toString() ;
 	}
 
 	public ArrayList<Atraccion> getAtracciones() {

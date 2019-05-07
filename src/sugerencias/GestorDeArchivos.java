@@ -53,9 +53,9 @@ public abstract class GestorDeArchivos {
 			archivo.close();
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("No se econtr� el archivo de configuración");	
+			System.out.println("No se encontro el archivo de configuracion");	
 		} catch (NoSuchElementException e) {
-			System.out.println("Linea mal formada en posici�n: " + posicion);	
+			System.out.println("Linea mal formada en posicion: " + posicion);	
 		} catch (IOException e) {
 			System.out.println("No se pudo interpretar la linea: " + posicion);
 		} 	
@@ -84,7 +84,7 @@ public abstract class GestorDeArchivos {
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
-				System.out.println("Promoción mal configurada");
+				System.out.println("Promocion mal configurada");
 			}
 		} else if (tipoDePromocion.equalsIgnoreCase("PromocionAbsoluta")) {
 			try {
@@ -94,7 +94,7 @@ public abstract class GestorDeArchivos {
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
-				System.out.println("Promoción mal configurada");
+				System.out.println("Promocion mal configurada");
 			}
 		} else if (tipoDePromocion.equalsIgnoreCase("PromocionUnoGratuito")) {
 			try {
@@ -104,7 +104,7 @@ public abstract class GestorDeArchivos {
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
-				System.out.println("Promoción mal configurada");
+				System.out.println("Promocion mal configurada");
 			}
 		}
 	}
@@ -158,7 +158,7 @@ public abstract class GestorDeArchivos {
 			}
 			escritor.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("No se econtr� el archivo de salida");	
+			System.out.println("No se encontro el archivo de salida");	
 		} catch (IOException e) {
 			System.out.println("Error al escribir linea");
 		} 	
