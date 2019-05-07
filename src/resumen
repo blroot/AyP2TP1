@@ -13,7 +13,7 @@ Atracciones incluídas:
 Tipo: Aventura
 Precio: 3
 Promedio de Tiempo: 4.0
-Cupo: 9, Nombre: Mordor
+Cupo: 10, Nombre: Mordor
 Tipo: Aventura
 Precio: 25
 Promedio de Tiempo: 3.0
@@ -32,14 +32,14 @@ Nombre: Bosque Negro
 Tipo: Aventura
 Precio: 3
 Promedio de Tiempo: 4.0
-Cupo: 9
+Cupo: 10
 
 Total a pagar: 60
 Total de tiempo estimado para el itinerario: 16.0
 --- Resumen de compra de usuario Mariela---
 Usuario: Mariela
-Presupuesto: 40
-Tiempo Disponible: -2.5
+Presupuesto: 37
+Tiempo Disponible: 1.5
 Atraccion Favorita: Degustacion
 Detalle de las atracciones/promociones compradas: 
 Nombre: Lothlorien
@@ -52,20 +52,11 @@ Tipo: Degustacion
 Precio: 3
 Promedio de Tiempo: 6.5
 Cupo: 149
-Promoción: Pack aventura 
-Tipo: Aventura 
-Precio total 22 
-Tiempo promedio total: 7.0 
-Atracciones incluídas: 
-[Nombre: Bosque Negro
-Tipo: Aventura
-Precio: 3
-Promedio de Tiempo: 4.0
-Cupo: 9, Nombre: Mordor
+Nombre: Mordor
 Tipo: Aventura
 Precio: 25
 Promedio de Tiempo: 3.0
-Cupo: 1]
+Cupo: 1
 
-Total a pagar: 60
-Total de tiempo estimado para el itinerario: 14.5
+Total a pagar: 63
+Total de tiempo estimado para el itinerario: 10.5

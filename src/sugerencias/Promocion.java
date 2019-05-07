@@ -40,10 +40,15 @@ public class Promocion extends Comprable {
 			return false;
 		}
 		
+		// Si no tiene presupuesto o tiempo disponible retorna false
+		if (usuario.getPresupuesto() < this.getPrecio() 
+				|| usuario.getTiempoDisponible() < this.getTiempoTotal()) {
+			return false;
+		}
+		
+		// Si ya adquirió la atracción no puede volver a adquirir
 		for (Atraccion atraccion: this.atracciones) {
-			if (usuario.getPresupuesto() < atraccion.getPrecio() 
-					|| usuario.getTiempoDisponible() < atraccion.getTiempoTotal()
-					|| usuario.getComprados().contains(atraccion)) {
+			if (usuario.getComprados().contains(atraccion)) {
 				return false;
 			}
 		}
