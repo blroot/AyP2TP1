@@ -21,7 +21,7 @@ public abstract class GestorDeArchivos {
 		int posicion = 0;
 		
 		try {
-			FileReader archivo = new FileReader("src\\configuracion");
+			FileReader archivo = new FileReader("src//configuracion");
 			BufferedReader lector = new BufferedReader(archivo);
 			String unaLinea;
 			
@@ -45,7 +45,15 @@ public abstract class GestorDeArchivos {
 					
 				} else if (tipoDeObjeto.equalsIgnoreCase("PromocionPorcentual")) {
 					
-					crearPromocion(DatosDeObjeto, tipoDeObjeto, comprables, mapaDeAtracciones);
+					crearPromocionPorcentual(DatosDeObjeto, comprables, mapaDeAtracciones);
+					
+				} else if (tipoDeObjeto.equalsIgnoreCase("PromocionTotal")) {
+					
+					crearPromocionTotal(DatosDeObjeto, comprables, mapaDeAtracciones);
+					
+				} else if (tipoDeObjeto.equalsIgnoreCase("PromocionUnoGratisl")) {
+					
+					crearPromocionUnoGratis(DatosDeObjeto, comprables, mapaDeAtracciones);
 					
 				}
 				
@@ -61,8 +69,7 @@ public abstract class GestorDeArchivos {
 		} 	
 	}
 	
-	private static void crearPromocion(String datosDeObjeto, String tipoDePromocion, 
-			ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeAtracciones) {
+	private static void crearPromocionPorcentual(String datosDeObjeto, ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeAtracciones) {
 		StringTokenizer st = new StringTokenizer(datosDeObjeto);
 		
 		String estaVigente = st.nextToken(",");
@@ -76,37 +83,68 @@ public abstract class GestorDeArchivos {
 			atracciones.add(atraccion);
 		}
 		
-		if (tipoDePromocion.equalsIgnoreCase("PromocionPorcentual")) {
-			try {
-				Comprable nuevoComprable = new PromocionPorcentual(nombre, Boolean.parseBoolean(estaVigente), 
-						atracciones, Double.parseDouble(arg));
-				comprables.add(nuevoComprable);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
-				System.out.println("Promocion mal configurada");
-			}
-		} else if (tipoDePromocion.equalsIgnoreCase("PromocionAbsoluta")) {
-			try {
-				Comprable nuevoComprable = new PromocionAbsoluta(nombre, Boolean.parseBoolean(estaVigente), 
-						atracciones, Integer.parseInt(arg));
-				comprables.add(nuevoComprable);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
-				System.out.println("Promocion mal configurada");
-			}
-		} else if (tipoDePromocion.equalsIgnoreCase("PromocionUnoGratuito")) {
-			try {
-				Comprable nuevoComprable = new PromocionUnoGratuito(nombre, Boolean.parseBoolean(estaVigente), 
-						atracciones, mapaDeAtracciones.get(arg));
-				comprables.add(nuevoComprable);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
-				System.out.println("Promocion mal configurada");
-			}
+		try {
+			Comprable nuevoComprable = new PromocionPorcentual(nombre, Boolean.parseBoolean(estaVigente), 
+					atracciones, Double.parseDouble(arg));
+			comprables.add(nuevoComprable);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
+			System.err.println("Promocion mal configurada");
 		}
+		
+	}
+	
+	private static void crearPromocionTotal(String datosDeObjeto, ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeAtracciones) {
+		StringTokenizer st = new StringTokenizer(datosDeObjeto);
+		
+		String estaVigente = st.nextToken(",");
+		String nombre = st.nextToken(",");
+		String arg = st.nextToken(",");
+		ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(); 
+		
+		// Guardo las atracciones en una lista
+		while (st.hasMoreTokens()) {
+			Atraccion atraccion = mapaDeAtracciones.get(st.nextToken(","));
+			atracciones.add(atraccion);
+		}
+		
+		try {
+			Comprable nuevoComprable = new PromocionAbsoluta(nombre, Boolean.parseBoolean(estaVigente), 
+					atracciones, Integer.parseInt(arg));
+			comprables.add(nuevoComprable);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
+			System.out.println("Promocion mal configurada");
+		}
+		
+	}
+	
+	private static void crearPromocionUnoGratis(String datosDeObjeto, ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeAtracciones) {
+		StringTokenizer st = new StringTokenizer(datosDeObjeto);
+		
+		String estaVigente = st.nextToken(",");
+		String nombre = st.nextToken(",");
+		String arg = st.nextToken(",");
+		ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(); 
+		
+		// Guardo las atracciones en una lista
+		while (st.hasMoreTokens()) {
+			Atraccion atraccion = mapaDeAtracciones.get(st.nextToken(","));
+			atracciones.add(atraccion);
+		}
+		
+		try {
+			Comprable nuevoComprable = new PromocionUnoGratuito(nombre, Boolean.parseBoolean(estaVigente), 
+					atracciones, mapaDeAtracciones.get(arg));
+			comprables.add(nuevoComprable);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
+			System.out.println("Promocion mal configurada");
+		}
+		
 	}
 
 	private static void crearUsuario(String datosDeObjeto, ArrayList<Usuario> usuarios) {
@@ -144,7 +182,7 @@ public abstract class GestorDeArchivos {
 	
 	public static void escribirArchivoDeSalida(ArrayList<Usuario> usuarios) {
 		try {
-			FileWriter escritor = new FileWriter("src\\resumen");
+			FileWriter escritor = new FileWriter("src//resumen");
 			for (Usuario usuario: usuarios) {
 				escritor.write("--- Resumen de compra de usuario " + usuario.getNombre() + "---\n");
 				escritor.write(usuario.toString());

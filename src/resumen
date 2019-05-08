@@ -1,7 +1,7 @@
 --- Resumen de compra de usuario Gonzalo---
 Usuario: Gonzalo
-Presupuesto: 20
-Tiempo Disponible: 0.0
+Presupuesto: 22
+Tiempo Disponible: 1.5
 Atraccion Favorita: Aventura
 Detalle de las atracciones/promociones compradas: 
 Promocion: Pack aventura 
@@ -13,50 +13,53 @@ Atracciones incluidas:
 Tipo: Aventura
 Precio: 3
 Promedio de Tiempo: 4.0
-Cupo: 10, Nombre: Mordor
+Cupo: 11, Nombre: Mordor
 Tipo: Aventura
 Precio: 25
 Promedio de Tiempo: 3.0
-Cupo: 1]
-Nombre: Mordor
-Tipo: Aventura
-Precio: 25
-Promedio de Tiempo: 3.0
-Cupo: 1
-Nombre: Moria
-Tipo: Aventura
-Precio: 10
-Promedio de Tiempo: 2.0
-Cupo: 5
-Nombre: Bosque Negro
-Tipo: Aventura
-Precio: 3
-Promedio de Tiempo: 4.0
-Cupo: 10
-
-Total a pagar: 60
-Total de tiempo estimado para el itinerario: 16.0
---- Resumen de compra de usuario Mariela---
-Usuario: Mariela
-Presupuesto: 37
-Tiempo Disponible: 1.5
-Atraccion Favorita: Degustacion
-Detalle de las atracciones/promociones compradas: 
-Nombre: Lothlorien
+Cupo: 2]
+Promocion: Pack degustacion 
+Tipo: Degustacion 
+Precio total 36 
+Tiempo promedio total: 7.5 
+Atracciones incluidas: 
+[Nombre: Lothlorien
 Tipo: Degustacion
 Precio: 35
 Promedio de Tiempo: 1.0
-Cupo: 29
-Nombre: La Comarca
+Cupo: 28, Nombre: La Comarca
 Tipo: Degustacion
 Precio: 3
 Promedio de Tiempo: 6.5
-Cupo: 149
+Cupo: 148]
+
+Total a pagar: 58
+Total de tiempo estimado para el itinerario: 14.5
+--- Resumen de compra de usuario Mariela---
+Usuario: Mariela
+Presupuesto: 39
+Tiempo Disponible: 1.5
+Atraccion Favorita: Degustacion
+Detalle de las atracciones/promociones compradas: 
+Promocion: Pack degustacion 
+Tipo: Degustacion 
+Precio total 36 
+Tiempo promedio total: 7.5 
+Atracciones incluidas: 
+[Nombre: Lothlorien
+Tipo: Degustacion
+Precio: 35
+Promedio de Tiempo: 1.0
+Cupo: 28, Nombre: La Comarca
+Tipo: Degustacion
+Precio: 3
+Promedio de Tiempo: 6.5
+Cupo: 148]
 Nombre: Mordor
 Tipo: Aventura
 Precio: 25
 Promedio de Tiempo: 3.0
-Cupo: 1
+Cupo: 2
 
-Total a pagar: 63
+Total a pagar: 61
 Total de tiempo estimado para el itinerario: 10.5

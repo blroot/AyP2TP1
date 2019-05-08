@@ -28,30 +28,38 @@ public abstract class Sistema {
 			Collections.sort(comprables,comparador);
 			//se iteran las atracciones
 			for (Comprable comprable : comprables) {
+				//System.out.println(comprables);
 				//si no tiene atraccion repetida y puede adquirir, pasa
 				if(comprable.puedeAdquirir(usuario)) {
-					//ofrece atraccion
-					System.out.println("Tenemos la siguiente oferta para vos: \n" + comprable.toString());
-					System.out.println("¿Aceptas la oferta?: <aceptar/rechazar>");
-					if(entrada.hasNext()) {
-						//si pongo el "Aceptar" funciona mal
-						if(entrada.next().equals("aceptar")) {
-							try {
-								comprable.vender(usuario);
-							} catch (UsuarioNoPuedeAdquirirComprable e) {
-								System.out.println(e);
-							}						
-							System.out.println("\nGracias por tu compra!");
-						if(entrada.nextLine().equals("rechazar")) {
-								break;
+					boolean respuestaIncorrecta = false;
+					do {
+						respuestaIncorrecta = false;
+						//ofrece atraccion
+						System.out.println("Tenemos la siguiente oferta para vos: \n" + comprable.toString());
+						System.out.println("ï¿½Aceptas la oferta?: <si/no>");
+						if(entrada.hasNext()) {
+							String siguiente = entrada.next();
+							//si pongo el "Aceptar" funciona mal
+							if(siguiente.equals("si")) {
+								try {
+									comprable.vender(usuario);
+								} catch (UsuarioNoPuedeAdquirirComprable e) {
+									System.out.println(e);
+								}						
+								System.out.println("\nGracias por tu compra!");
+							} else if(siguiente.equals("no")) {
+									break;
+							} else {
+								System.err.println("\nDebe ingresar si o no");
+								respuestaIncorrecta = true;
 							}
 						}
-					}
+					} while (respuestaIncorrecta); 
 				}
 			}
 			//se imprime el itinerario y aviso que paso al otro usuario
 			System.out.println("\nItinerario del usuario: "+usuario.getNombre()+"\nDinero gastado: "+usuario.getDineroGastado()
-								+"\nTiempo necesario: "+usuario.getTiempoGastado()+"\nCompró: ");
+								+"\nTiempo necesario: "+usuario.getTiempoGastado()+"\nComprï¿½: ");
 			usuario.getNombresDeComprados();
 			System.out.println("\nPasa al otro usuario");
 		}
