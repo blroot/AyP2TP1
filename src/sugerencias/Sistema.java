@@ -10,16 +10,15 @@ public abstract class Sistema {
 	
 	public static void main(String[] args) throws IOException {
 		
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		ArrayList<Comprable> comprables = new ArrayList<Comprable>();
-		HashMap<String, Atraccion> mapaDeAtracciones = new HashMap<String, Atraccion>();
+		GestorDeArchivos gestorDeArchivos = new GestorDeArchivos();
+		gestorDeArchivos.leerArchivosDeConfiguracion();
 		
-		GestorDeArchivos.leerArchivoDeConfiguracion(usuarios, comprables, mapaDeAtracciones);
-		
-		////////////////////////////////////
-		////////////////////////////////////
 		//creo scanner para aceptar/rechazar
 		Scanner entrada=new Scanner(System.in);
+		
+		ArrayList<Usuario> usuarios = gestorDeArchivos.getUsuarios();
+		ArrayList<Comprable> comprables = gestorDeArchivos.getComprables();
+		
 		//se recorre usuario por usuario
 		for(Usuario usuario: usuarios) {
 			System.out.println("\nHola " + usuario.getNombre());
@@ -36,7 +35,7 @@ public abstract class Sistema {
 						respuestaIncorrecta = false;
 						//ofrece atraccion
 						System.out.println("Tenemos la siguiente oferta para vos: \n" + comprable.toString());
-						System.out.println("ï¿½Aceptas la oferta?: <si/no>");
+						System.out.println("¿Aceptas la oferta?: <si/no>");
 						if(entrada.hasNext()) {
 							String siguiente = entrada.next();
 							//si pongo el "Aceptar" funciona mal
@@ -59,11 +58,11 @@ public abstract class Sistema {
 			}
 			//se imprime el itinerario y aviso que paso al otro usuario
 			System.out.println("\nItinerario del usuario: "+usuario.getNombre()+"\nDinero gastado: "+usuario.getDineroGastado()
-								+"\nTiempo necesario: "+usuario.getTiempoGastado()+"\nComprï¿½: ");
+								+"\nTiempo necesario: "+usuario.getTiempoGastado()+"\nCompró: ");
 			usuario.getNombresDeComprados();
 			System.out.println("\nPasa al otro usuario");
 		}
-		GestorDeArchivos.escribirArchivoDeSalida(usuarios);
+		gestorDeArchivos.escribirArchivoDeSalida();
 		entrada.close();
 	}
 	

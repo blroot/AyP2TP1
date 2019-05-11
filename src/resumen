@@ -1,7 +1,7 @@
 --- Resumen de compra de usuario Gonzalo---
 Usuario: Gonzalo
-Presupuesto: 22
-Tiempo Disponible: 1.5
+Presupuesto: 1
+Tiempo Disponible: 3.0
 Atraccion Favorita: Aventura
 Detalle de las atracciones/promociones compradas: 
 Promocion: Pack aventura 
@@ -18,23 +18,24 @@ Tipo: Aventura
 Precio: 25
 Promedio de Tiempo: 3.0
 Cupo: 2]
-Promocion: Pack degustacion 
-Tipo: Degustacion 
-Precio total 36 
-Tiempo promedio total: 7.5 
-Atracciones incluidas: 
-[Nombre: Lothlorien
+Nombre: Moria
+Tipo: Aventura
+Precio: 10
+Promedio de Tiempo: 2.0
+Cupo: 5
+Nombre: Lothlorien
 Tipo: Degustacion
 Precio: 35
 Promedio de Tiempo: 1.0
-Cupo: 28, Nombre: La Comarca
-Tipo: Degustacion
-Precio: 3
-Promedio de Tiempo: 6.5
-Cupo: 148]
+Cupo: 28
+Nombre: Erebor
+Tipo: Paisaje
+Precio: 12
+Promedio de Tiempo: 3.0
+Cupo: 31
 
-Total a pagar: 58
-Total de tiempo estimado para el itinerario: 14.5
+Total a pagar: 79
+Total de tiempo estimado para el itinerario: 13.0
 --- Resumen de compra de usuario Mariela---
 Usuario: Mariela
 Presupuesto: 39
@@ -54,7 +55,7 @@ Cupo: 28, Nombre: La Comarca
 Tipo: Degustacion
 Precio: 3
 Promedio de Tiempo: 6.5
-Cupo: 148]
+Cupo: 149]
 Nombre: Mordor
 Tipo: Aventura
 Precio: 25

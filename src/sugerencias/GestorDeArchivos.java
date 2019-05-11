@@ -13,21 +13,84 @@ import java.util.StringTokenizer;
 import org.omg.CORBA.DoubleSeqHelper;
 
 
-public abstract class GestorDeArchivos {
+public class GestorDeArchivos {
 	
-	public static void leerArchivoDeConfiguracion(ArrayList<Usuario> usuarios, ArrayList<Comprable> comprables, 
-			HashMap<String, Atraccion> mapaDeAtracciones) {
+	private ArrayList<Usuario> usuarios;
+	private ArrayList<Comprable> comprables;
+	private HashMap<String, Atraccion> mapaDeAtracciones;
+	
+	public GestorDeArchivos() {
+		this.usuarios = new ArrayList<Usuario>();
+		this.comprables = new ArrayList<Comprable>();
+		this.mapaDeAtracciones = new HashMap<String, Atraccion>();
+	}
+	
+	public void leerArchivosDeConfiguracion() {
+		
+		leerArchivoDeUsuarios();
+		leerArchivoDeAtracciones();
+		leerArchivoDePromociones();
+		// Una vez leídas las promociones ya no necesito el diccionario
+		this.mapaDeAtracciones = null;
+	}
+	
+	private void leerArchivoDeUsuarios() {
 		
 		int posicion = 0;
 		
 		try {
-			FileReader archivo = new FileReader("src//configuracion");
+			FileReader archivo = new FileReader("src//usuarios");
+			BufferedReader lector = new BufferedReader(archivo);
+			String unaLinea;
+							
+			while ((unaLinea = lector.readLine()) != null) {
+				posicion++;
+				crearUsuario(unaLinea);
+			}
+			archivo.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("No se encontro el archivo de usuarios");	
+		} catch (NoSuchElementException e) {
+			System.out.println("Linea mal formada en posicion: " + posicion);	
+		} catch (IOException e) {
+			System.out.println("No se pudo interpretar la linea: " + posicion);
+		} 	
+	}
+	
+	private void leerArchivoDeAtracciones() {
+		
+		int posicion = 0;
+		
+		try {
+			FileReader archivo = new FileReader("src//atracciones");
+			BufferedReader lector = new BufferedReader(archivo);
+			String unaLinea;
+								
+			while ((unaLinea = lector.readLine()) != null) {
+				posicion++;	
+				crearAtraccion(unaLinea);		
+			}
+			archivo.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("No se encontro el archivo de atracciones");	
+		} catch (NoSuchElementException e) {
+			System.out.println("Linea mal formada en posicion: " + posicion);	
+		} catch (IOException e) {
+			System.out.println("No se pudo interpretar la linea: " + posicion);
+		} 	
+	}
+	
+	private void leerArchivoDePromociones() {
+		
+		int posicion = 0;
+		
+		try {
+			FileReader archivo = new FileReader("src//promociones");
 			BufferedReader lector = new BufferedReader(archivo);
 			String unaLinea;
 			
-			// Solo debug
-			//System.out.println("Leyendo archivo de configuraciï¿½n...");
-					
 			while ((unaLinea = lector.readLine()) != null) {
 				posicion++;
 				
@@ -35,25 +98,17 @@ public abstract class GestorDeArchivos {
 				String tipoDeObjeto = st.nextToken(":");
 				String DatosDeObjeto = st.nextToken(":");
 							
-				if (tipoDeObjeto.equalsIgnoreCase("Usuario")) {
+				if (tipoDeObjeto.equalsIgnoreCase("Porcentual")) {
 					
-					crearUsuario(DatosDeObjeto, usuarios);
+					crearPromocionPorcentual(DatosDeObjeto);
 					
-				} else if (tipoDeObjeto.equalsIgnoreCase("Atraccion")) {
+				} else if (tipoDeObjeto.equalsIgnoreCase("Total")) {
 					
-					crearAtraccion(DatosDeObjeto, comprables, mapaDeAtracciones);
+					crearPromocionTotal(DatosDeObjeto);
 					
-				} else if (tipoDeObjeto.equalsIgnoreCase("PromocionPorcentual")) {
+				} else if (tipoDeObjeto.equalsIgnoreCase("UnoGratis")) {
 					
-					crearPromocionPorcentual(DatosDeObjeto, comprables, mapaDeAtracciones);
-					
-				} else if (tipoDeObjeto.equalsIgnoreCase("PromocionTotal")) {
-					
-					crearPromocionTotal(DatosDeObjeto, comprables, mapaDeAtracciones);
-					
-				} else if (tipoDeObjeto.equalsIgnoreCase("PromocionUnoGratisl")) {
-					
-					crearPromocionUnoGratis(DatosDeObjeto, comprables, mapaDeAtracciones);
+					crearPromocionUnoGratis(DatosDeObjeto);
 					
 				}
 				
@@ -69,8 +124,8 @@ public abstract class GestorDeArchivos {
 		} 	
 	}
 	
-	private static void crearPromocionPorcentual(String datosDeObjeto, ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeAtracciones) {
-		StringTokenizer st = new StringTokenizer(datosDeObjeto);
+	private void crearPromocionPorcentual(String datos) {
+		StringTokenizer st = new StringTokenizer(datos);
 		
 		String estaVigente = st.nextToken(",");
 		String nombre = st.nextToken(",");
@@ -79,14 +134,14 @@ public abstract class GestorDeArchivos {
 		
 		// Guardo las atracciones en una lista
 		while (st.hasMoreTokens()) {
-			Atraccion atraccion = mapaDeAtracciones.get(st.nextToken(","));
+			Atraccion atraccion = this.mapaDeAtracciones.get(st.nextToken(","));
 			atracciones.add(atraccion);
 		}
 		
 		try {
 			Comprable nuevoComprable = new PromocionPorcentual(nombre, Boolean.parseBoolean(estaVigente), 
 					atracciones, Double.parseDouble(arg));
-			comprables.add(nuevoComprable);
+			this.comprables.add(nuevoComprable);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
@@ -95,8 +150,8 @@ public abstract class GestorDeArchivos {
 		
 	}
 	
-	private static void crearPromocionTotal(String datosDeObjeto, ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeAtracciones) {
-		StringTokenizer st = new StringTokenizer(datosDeObjeto);
+	private void crearPromocionTotal(String datos) {
+		StringTokenizer st = new StringTokenizer(datos);
 		
 		String estaVigente = st.nextToken(",");
 		String nombre = st.nextToken(",");
@@ -105,14 +160,14 @@ public abstract class GestorDeArchivos {
 		
 		// Guardo las atracciones en una lista
 		while (st.hasMoreTokens()) {
-			Atraccion atraccion = mapaDeAtracciones.get(st.nextToken(","));
+			Atraccion atraccion = this.mapaDeAtracciones.get(st.nextToken(","));
 			atracciones.add(atraccion);
 		}
 		
 		try {
 			Comprable nuevoComprable = new PromocionAbsoluta(nombre, Boolean.parseBoolean(estaVigente), 
 					atracciones, Integer.parseInt(arg));
-			comprables.add(nuevoComprable);
+			this.comprables.add(nuevoComprable);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
@@ -121,8 +176,8 @@ public abstract class GestorDeArchivos {
 		
 	}
 	
-	private static void crearPromocionUnoGratis(String datosDeObjeto, ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeAtracciones) {
-		StringTokenizer st = new StringTokenizer(datosDeObjeto);
+	private void crearPromocionUnoGratis(String datos) {
+		StringTokenizer st = new StringTokenizer(datos);
 		
 		String estaVigente = st.nextToken(",");
 		String nombre = st.nextToken(",");
@@ -131,13 +186,13 @@ public abstract class GestorDeArchivos {
 		
 		// Guardo las atracciones en una lista
 		while (st.hasMoreTokens()) {
-			Atraccion atraccion = mapaDeAtracciones.get(st.nextToken(","));
+			Atraccion atraccion = this.mapaDeAtracciones.get(st.nextToken(","));
 			atracciones.add(atraccion);
 		}
 		
 		try {
 			Comprable nuevoComprable = new PromocionUnoGratuito(nombre, Boolean.parseBoolean(estaVigente), 
-					atracciones, mapaDeAtracciones.get(arg));
+					atracciones, this.mapaDeAtracciones.get(arg));
 			comprables.add(nuevoComprable);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -147,43 +202,36 @@ public abstract class GestorDeArchivos {
 		
 	}
 
-	private static void crearUsuario(String datosDeObjeto, ArrayList<Usuario> usuarios) {
-		StringTokenizer st = new StringTokenizer(datosDeObjeto);
+	private void crearUsuario(String datos) {
+		StringTokenizer st = new StringTokenizer(datos);
 		
 		String nombre = st.nextToken(",");
 		int presupuesto = Integer.parseInt(st.nextToken(","));
 		double tiempoDisponible = Double.parseDouble(st.nextToken(","));
 		TipoDeAtraccion tipoDeAtraccionPreferida = TipoDeAtraccion.valueOf(st.nextToken());
 		
-		
-		// Solo debug
-		//System.out.println("Cargando nuevo Usuario...");
-		
 		Usuario nuevoUsuario = new Usuario(nombre, presupuesto, tiempoDisponible, tipoDeAtraccionPreferida);
-		usuarios.add(nuevoUsuario);	
+		this.usuarios.add(nuevoUsuario);	
 	}
 	
-	private static void crearAtraccion(String datosDeObjeto, ArrayList<Comprable> comprables, HashMap<String, Atraccion> mapaDeComprables) {
-		StringTokenizer st = new StringTokenizer(datosDeObjeto);
+	private void crearAtraccion(String datos) {
+		StringTokenizer st = new StringTokenizer(datos);
 		
 		String nombre = st.nextToken(",");
 		int costo = Integer.parseInt(st.nextToken(","));
 		double tiempo = Double.parseDouble(st.nextToken(","));
 		int cupo = Integer.parseInt(st.nextToken(","));
 		TipoDeAtraccion tipo = TipoDeAtraccion.valueOf(st.nextToken(","));
-		
-		// Solo debug
-		//System.out.println("Cargando nueva Atraccion...");
-		
+
 		Atraccion nuevaAtraccion = new Atraccion(nombre, costo, tiempo, cupo, tipo);
-		comprables.add(nuevaAtraccion);
-		mapaDeComprables.put(nuevaAtraccion.getNombre(), nuevaAtraccion);
+		this.comprables.add(nuevaAtraccion);
+		this.mapaDeAtracciones.put(nuevaAtraccion.getNombre(), nuevaAtraccion);
 	}
 	
-	public static void escribirArchivoDeSalida(ArrayList<Usuario> usuarios) {
+	public void escribirArchivoDeSalida() {
 		try {
 			FileWriter escritor = new FileWriter("src//resumen");
-			for (Usuario usuario: usuarios) {
+			for (Usuario usuario: this.usuarios) {
 				escritor.write("--- Resumen de compra de usuario " + usuario.getNombre() + "---\n");
 				escritor.write(usuario.toString());
 				escritor.write("\nDetalle de las atracciones/promociones compradas: \n");
@@ -200,6 +248,14 @@ public abstract class GestorDeArchivos {
 		} catch (IOException e) {
 			System.out.println("Error al escribir linea");
 		} 	
+	}
+	
+	public ArrayList<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+	
+	public ArrayList<Comprable> getComprables() {
+		return this.comprables;
 	}
 
 }
