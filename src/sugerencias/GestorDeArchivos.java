@@ -18,6 +18,9 @@ public class GestorDeArchivos {
 	private ArrayList<Usuario> usuarios;
 	private ArrayList<Comprable> comprables;
 	private HashMap<String, Atraccion> mapaDeAtracciones;
+	private final String rutaConfiguracionUsuarios = "src//usuarios";
+	private final String rutaConfiguracionAtracciones = "src//atracciones";
+	private final String rutaConfiguracionPromociones = "src//promociones";
 	
 	public GestorDeArchivos() {
 		this.usuarios = new ArrayList<Usuario>();
@@ -39,7 +42,7 @@ public class GestorDeArchivos {
 		int posicion = 0;
 		
 		try {
-			FileReader archivo = new FileReader("src//usuarios");
+			FileReader archivo = new FileReader(rutaConfiguracionUsuarios);
 			BufferedReader lector = new BufferedReader(archivo);
 			String unaLinea;
 							
@@ -63,7 +66,7 @@ public class GestorDeArchivos {
 		int posicion = 0;
 		
 		try {
-			FileReader archivo = new FileReader("src//atracciones");
+			FileReader archivo = new FileReader(rutaConfiguracionAtracciones);
 			BufferedReader lector = new BufferedReader(archivo);
 			String unaLinea;
 								
@@ -87,7 +90,7 @@ public class GestorDeArchivos {
 		int posicion = 0;
 		
 		try {
-			FileReader archivo = new FileReader("src//promociones");
+			FileReader archivo = new FileReader(rutaConfiguracionPromociones);
 			BufferedReader lector = new BufferedReader(archivo);
 			String unaLinea;
 			
