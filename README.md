@@ -12,14 +12,30 @@ Integrantes:
 - El m√©todo que debe utilizarse para vender un Comprable es Comprable.vender(Usuario). 
 Dicho m√©todo se encarga de reducir el cupo diario del Comprable y a su vez de agregar el Comprable en Usuario. 
 Si Comprable no tiene cupo disponible o Usuario no tiene tiempo o saldo suficiente, lanza una excepci√≥n. El programador es responsable de llamar antes de vender(Usuario) al m√©todo puedeAdquirir(Usuario)
-- Para el formato de archivo de configuraci√≥n se decidi√≥ utilizar:
-    - TipoDeObjeto:Dato,Dato,Dato
-    - Ej: Usuario:Gonzalo,80,16,Aventura
+- Para el formato de los archivos de configuraci√≥n se decidi√≥ utilizar:
+	- usuarios:
+		- Nombre,Presupuesto,TiempoDisponible
+	- atracciones:
+		- Nombre,Precio,Tiempo,Cupo,TipoDeAtraccion
+	- promociones:
+		-PromociÛn porcentual
+			- Porcentual:estaVigente,Nombre,PorcentajeDeDescuento,Atraccion,Atraccion
+		-PromociÛn total
+			- Total:estaVigente,Nombre,Precio,Atraccion,Atraccion
+		-PromociÛn uno gratis
+			- UnoGratis:estaVigente,Nombre,AtraccionGratis,Atraccion,Atraccion
+		- En todos los casos, se pueden especificar n atracciones para cada paquete.
 - Se decidi√≥ utilizar un Comparator que se construye con la preferencia del Usuario para poder ordenar la lista de Comprables y luego generar las sugerencias.
 - Se decidi√≥ que la vigencia de un paquete se configure desde el archivo de configuraci√≥n.
 - Para que Promocion tenga mas prioridad al ordenar los Comprables, se asigna enum Prioridad en el constructor de cada Comprable (en Promocion prioridad es Alta).
 - Las promociones solo pueden contener atracciones de un solo tipo.
 - La promoci√≥n porcentual redondea el precio para que sea entero.
+
+## Diagrama UML
+
+![alt text](TP1_ver4.jpg "Diagrama UML")
+
+[Link a la im·gen](TP1_ver4.jpg)
 
 ## Descripci√≥n de cada archivo fuente
 
@@ -81,14 +97,6 @@ Sobreescribe el m√©todo getPrecio() para descontar del precio total el precio de
 
 Es la clase que contiene el punto de entrada (main). De aqu√≠ se obtiene el ejecutable de la aplicaci√≥n.
 
-##### TestComprable.java
-
-Pruebas unitarias de la clase Comprable e hijos.
-
-##### TestUsuario.java
-
-Pruebas unitarias de la clase Usuario.
-
 ##### TipoDeAtraccion.java
 
 Enumera todos los tipos de Atraccion del sistema (Aventura, Paisaje, Degustacion)
@@ -100,4 +108,7 @@ Constructor: `Usuario(String nombre, int presupuesto, double tiempoDisponible, T
 Representa a un usuario del sistema, con su nombre, tipo de atracci√≥n preferida, presupuesto y tiempo para gastar.
 
 ## Conclusiones
+
+- A la hora de recuperar instancias de un objeto de tipo Atraccion para construir las promociones, en lugar de hacer alg˙n tipo de b˙squeda en la lista de atracciones, se decidiÛ tener un diccionario de atracciones cuya clave es el nombre de la atracciÛn. De esta forma se recupera una atracciÛn con complejidad O(1) aunque con un uso algo m·s elevado de memoria.
+- Para las listas se decidiÛ utilizar ArrayList en lugar de LinkedList ya que siempre insertamos elementos al final de las listas y tampoco necesitamos borrar elementos de posiciones intermedias.
 

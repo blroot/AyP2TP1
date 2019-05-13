@@ -11,7 +11,6 @@ public class ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo implements Co
 
 	@Override
 	public int compare(Comprable arg0, Comprable arg1) {
-		// TODO: seguramente se puede mejorar
 		
 		int puntaje = 0;
 		
