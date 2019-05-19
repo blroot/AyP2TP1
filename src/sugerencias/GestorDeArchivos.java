@@ -103,15 +103,15 @@ public class GestorDeArchivos {
 							
 				if (tipoDeObjeto.equalsIgnoreCase("Porcentual")) {
 					
-					crearPromocionPorcentual(DatosDeObjeto);
+					crearPromocionPorcentual(DatosDeObjeto,posicion);
 					
 				} else if (tipoDeObjeto.equalsIgnoreCase("Total")) {
 					
-					crearPromocionTotal(DatosDeObjeto);
+					crearPromocionTotal(DatosDeObjeto,posicion);
 					
 				} else if (tipoDeObjeto.equalsIgnoreCase("UnoGratis")) {
 					
-					crearPromocionUnoGratis(DatosDeObjeto);
+					crearPromocionUnoGratis(DatosDeObjeto,posicion);
 					
 				}
 				
@@ -127,80 +127,104 @@ public class GestorDeArchivos {
 		} 	
 	}
 	
-	private void crearPromocionPorcentual(String datos) {
+	private void crearPromocionPorcentual(String datos, int linea) {
 		StringTokenizer st = new StringTokenizer(datos);
 		
 		String estaVigente = st.nextToken(",");
 		String nombre = st.nextToken(",");
 		String arg = st.nextToken(",");
-		ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(); 
-		
-		// Guardo las atracciones en una lista
-		while (st.hasMoreTokens()) {
-			Atraccion atraccion = this.mapaDeAtracciones.get(st.nextToken(","));
-			atracciones.add(atraccion);
-		}
+		int posicion=0;
 		
 		try {
+			ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(); 
+			
+			// Guardo las atracciones en una lista
+			while (st.hasMoreTokens()) {
+				posicion++;
+				Atraccion atraccion = this.mapaDeAtracciones.get(st.nextToken(","));
+				atracciones.add(atraccion);
+			}
 			Comprable nuevoComprable = new PromocionPorcentual(nombre, Boolean.parseBoolean(estaVigente), 
 					atracciones, Double.parseDouble(arg));
 			this.comprables.add(nuevoComprable);
 		} catch (NumberFormatException e) {
+			System.err.println("Error en la atraccion "+nombre+". El 3er valor, debe ser un numero");
 			e.printStackTrace();
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			System.err.println("Promocion mal configurada");
+		} catch(IllegalArgumentException e){
+			System.err.println(nombre+" tiene un Tipo de atraccion invalida");
+		} catch(NullPointerException e) {
+			String aviso="La promocion: "+nombre+" NO fue cargada";
+			System.err.println("La "+posicion+"° Atraccion, de la linea "+linea+" es invalida. "+aviso);
+			//"Atraccion/es invalida/s en la linea: "+posicion+"\n"+aviso
 		}
 		
 	}
 	
-	private void crearPromocionTotal(String datos) {
+	private void crearPromocionTotal(String datos, int linea) {
 		StringTokenizer st = new StringTokenizer(datos);
 		
 		String estaVigente = st.nextToken(",");
 		String nombre = st.nextToken(",");
 		String arg = st.nextToken(",");
-		ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(); 
-		
-		// Guardo las atracciones en una lista
-		while (st.hasMoreTokens()) {
-			Atraccion atraccion = this.mapaDeAtracciones.get(st.nextToken(","));
-			atracciones.add(atraccion);
-		}
+		int posicion=0;
 		
 		try {
+			ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(); 
+			
+			// Guardo las atracciones en una lista
+			while (st.hasMoreTokens()) {
+				posicion++;
+				Atraccion atraccion = this.mapaDeAtracciones.get(st.nextToken(","));
+				atracciones.add(atraccion);
+			}
 			Comprable nuevoComprable = new PromocionAbsoluta(nombre, Boolean.parseBoolean(estaVigente), 
 					atracciones, Integer.parseInt(arg));
 			this.comprables.add(nuevoComprable);
 		} catch (NumberFormatException e) {
+			System.err.println("Error en la atraccion "+nombre+". El 3er valor, debe ser un numero");
 			e.printStackTrace();
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			System.out.println("Promocion mal configurada");
+		} catch(IllegalArgumentException e){
+			System.err.println(nombre+" tiene un Tipo de atraccion invalida");
+		} catch(NullPointerException e) {
+			String aviso="La promocion: "+nombre+" NO fue cargada";
+			System.err.println("La "+posicion+"° Atraccion, de la linea "+linea+" es invalida. "+aviso);
 		}
 		
 	}
 	
-	private void crearPromocionUnoGratis(String datos) {
+	private void crearPromocionUnoGratis(String datos,int linea) {
 		StringTokenizer st = new StringTokenizer(datos);
 		
 		String estaVigente = st.nextToken(",");
 		String nombre = st.nextToken(",");
 		String arg = st.nextToken(",");
-		ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(); 
-		
-		// Guardo las atracciones en una lista
-		while (st.hasMoreTokens()) {
-			Atraccion atraccion = this.mapaDeAtracciones.get(st.nextToken(","));
-			atracciones.add(atraccion);
-		}
-		
+		int posicion=0;
 		try {
+			ArrayList<Atraccion> atracciones = new ArrayList<Atraccion>(); 
+			
+			// Guardo las atracciones en una lista
+			while (st.hasMoreTokens()) {
+				posicion++;
+				Atraccion atraccion = this.mapaDeAtracciones.get(st.nextToken(","));
+				atracciones.add(atraccion);
+			}
 			Comprable nuevoComprable = new PromocionUnoGratuito(nombre, Boolean.parseBoolean(estaVigente), 
 					atracciones, this.mapaDeAtracciones.get(arg));
 			comprables.add(nuevoComprable);
 		} catch (NumberFormatException e) {
+			//es necesario?
 			e.printStackTrace();
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			System.out.println("Promocion mal configurada");
+		} catch(IllegalArgumentException e){
+			System.err.println(nombre+" tiene un Tipo de atraccion invalida");
+		} catch(NullPointerException e) {
+			String aviso="La promocion: "+nombre+" NO fue cargada";
+			System.err.println("La "+posicion+"° Atraccion, de la linea "+linea+" es invalida. "+aviso);
 		}
 		
 	}
@@ -209,18 +233,26 @@ public class GestorDeArchivos {
 		StringTokenizer st = new StringTokenizer(datos);
 		
 		String nombre = st.nextToken(",");
-		int presupuesto = Integer.parseInt(st.nextToken(","));
-		double tiempoDisponible = Double.parseDouble(st.nextToken(","));
-		TipoDeAtraccion tipoDeAtraccionPreferida = TipoDeAtraccion.valueOf(st.nextToken());
+		try{
+			int presupuesto = Integer.parseInt(st.nextToken(","));
+			double tiempoDisponible = Double.parseDouble(st.nextToken(","));
+			TipoDeAtraccion tipoDeAtraccionPreferida = TipoDeAtraccion.valueOf(st.nextToken());		
+			Usuario nuevoUsuario = new Usuario(nombre, presupuesto, tiempoDisponible, tipoDeAtraccionPreferida);
+			this.usuarios.add(nuevoUsuario);	
+		} catch(NumberFormatException e) {
+			System.err.println("Error en el Usuario "+nombre+". En el 2do y 3er valor, se deben ingresar numeros");
+		} catch(IllegalArgumentException e){
+			System.err.println(nombre+" tiene un Tipo de atraccion invalida");
+		}
 		
-		Usuario nuevoUsuario = new Usuario(nombre, presupuesto, tiempoDisponible, tipoDeAtraccionPreferida);
-		this.usuarios.add(nuevoUsuario);	
 	}
 	
 	private void crearAtraccion(String datos) {
 		StringTokenizer st = new StringTokenizer(datos);
 		
+		
 		String nombre = st.nextToken(",");
+	try{	
 		int costo = Integer.parseInt(st.nextToken(","));
 		double tiempo = Double.parseDouble(st.nextToken(","));
 		int cupo = Integer.parseInt(st.nextToken(","));
@@ -229,6 +261,11 @@ public class GestorDeArchivos {
 		Atraccion nuevaAtraccion = new Atraccion(nombre, costo, tiempo, cupo, tipo);
 		this.comprables.add(nuevaAtraccion);
 		this.mapaDeAtracciones.put(nuevaAtraccion.getNombre(), nuevaAtraccion);
+	} catch(NumberFormatException e) {
+		System.err.println("Error en la atraccion "+nombre+". El 2do, 3er y 4to valor, deben ser numeros");
+	} catch(IllegalArgumentException e){
+		System.err.println(nombre+" tiene un Tipo de atraccion invalida");
+	}
 	}
 	
 	public void escribirArchivoDeSalida() {

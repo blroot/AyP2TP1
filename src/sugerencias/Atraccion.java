@@ -6,15 +6,45 @@ public class Atraccion extends Comprable {
 	private double promedioDeTiempo;
 	private int cupoDiario;
 	private TipoDeAtraccion tipoDeAtraccion;
+	private VerificarDeEntradas verificador;
 
 	public Atraccion(String nombre, int costo, double tiempo, int cupo, TipoDeAtraccion tipo) {
 		super(nombre, Prioridad.Baja);
-		this.costo = costo;
-		this.promedioDeTiempo = tiempo;
-		this.cupoDiario = cupo;
+		verificador=new VerificarDeEntradas();
+		setCosto(costo);
+		setPromedioDeTiempo(tiempo);
+		setCupoDiario(cupo);
+		try {
+			setTipoDeAtraccion(tipo);	
+		}catch(IllegalArgumentException e) {
+			System.err.println("Tipo de atraccion no incorrecta");
+		}
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public void setCosto(int costo) {
+		if(verificador.comprobacionFinalDineroIngresado(costo,getNombre())){
+			this.costo = costo;
+		}
+	}
+	//LISTO
+	public void setPromedioDeTiempo(double tiempo) {
+		if(verificador.comprobacionFinalTiempoIngresado(tiempo,getNombre())) {
+			this.promedioDeTiempo = tiempo;	
+		}
+	}
+	//LISTO
+	public void setCupoDiario(int cupo) {
+		if(verificador.comprobacionFinalCupo(cupo,getNombre())){
+			this.cupoDiario = cupo;
+			}
+	}
+	//LISTO
+	public void setTipoDeAtraccion(TipoDeAtraccion tipo) {	
 		this.tipoDeAtraccion = tipo;
 	}
 	
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 	public void disminuirCupoDiario() {
 		this.cupoDiario--;
 	}

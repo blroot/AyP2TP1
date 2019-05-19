@@ -10,17 +10,45 @@ public class Usuario {
 	private String nombre;
 	private int dineroGastado;
 	private double tiempoGastado;
+	private VerificarDeEntradas verificador;
 	
 	public Usuario(String nombre, int presupuesto, double tiempoDisponible, TipoDeAtraccion tipoDeAtraccionPreferida) {
 		this.comprados = new ArrayList<Comprable>();
 		this.nombre = nombre;
-		this.presupuesto = presupuesto;
-		this.tiempoDisponible = tiempoDisponible;
-		this.tipoDeAtraccionPreferida = tipoDeAtraccionPreferida;
+		//si inicializo verificador abajo, se rompe todo...
+		verificador=new VerificarDeEntradas();
+		setPresupuesto(presupuesto);
+		setTiempoDisponible(tiempoDisponible);
+		try{
+			setTipoDeAtraccionPreferida(tipoDeAtraccionPreferida);		
+		} catch(IllegalArgumentException e) {
+			System.err.println("Tipo de atraccion no valida");
+		}
 		dineroGastado=0;
 		tiempoGastado=0;
 	}
 
+	public TipoDeAtraccion getTipoDeAtraccionPreferida() {
+		return tipoDeAtraccionPreferida;
+	}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+	public void setTipoDeAtraccionPreferida(TipoDeAtraccion tipoDeAtraccionPreferida) {
+			this.tipoDeAtraccionPreferida = tipoDeAtraccionPreferida;
+	}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	public void setPresupuesto(int presupuesto) {
+		//tambien le paso el nombre para que arroje bien la excepcion
+		if(verificador.comprobacionFinalDineroIngresado(presupuesto, this.nombre)){
+			this.presupuesto=presupuesto;
+		}
+	}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	public void setTiempoDisponible(double tiempoDisponible) {
+		if(verificador.comprobacionFinalTiempoIngresado(tiempoDisponible, this.nombre)) {
+			this.tiempoDisponible=tiempoDisponible;
+		}
+	}
+	
 	public String getNombre() {
 		return this.nombre;
 	}
