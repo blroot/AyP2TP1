@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import sugerencias.Atraccion;
+import sugerencias.AtraccionesNoContieneObtieneGratis;
 import sugerencias.Comprable;
 import sugerencias.EntradaDeDatosException;
 import sugerencias.PromocionTieneUnSoloTipoDeAtraccion;
@@ -112,6 +113,8 @@ public class TestsUsuario {
 			Assert.assertFalse(comprable.puedeAdquirir(usuario));
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			e.printStackTrace();
+		} catch (AtraccionesNoContieneObtieneGratis e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -133,7 +136,8 @@ public class TestsUsuario {
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			e.printStackTrace();
 		} catch (UsuarioNoPuedeAdquirirComprable e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AtraccionesNoContieneObtieneGratis e) {
 			e.printStackTrace();
 		}
 	}
@@ -163,7 +167,8 @@ public class TestsUsuario {
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			e.printStackTrace();
 		} catch (UsuarioNoPuedeAdquirirComprable e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AtraccionesNoContieneObtieneGratis e) {
 			e.printStackTrace();
 		}
 	}

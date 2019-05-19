@@ -8,9 +8,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import sugerencias.Atraccion;
+import sugerencias.AtraccionesNoContieneObtieneGratis;
 import sugerencias.ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo;
 import sugerencias.Comprable;
+import sugerencias.CostoNegativoNoPermitido;
 import sugerencias.EntradaDeDatosException;
+import sugerencias.PorcentajeFueraDeRango;
 import sugerencias.Prioridad;
 import sugerencias.Promocion;
 import sugerencias.PromocionAbsoluta;
@@ -31,7 +34,7 @@ public class TestsComprable {
 	}
 	
 	@Test
-	public void puedoCrearPromocionYTieneCostoTiempoYPrioridadCorrecto() throws EntradaDeDatosException{
+	public void puedoCrearPromocionYTieneCostoTiempoYPrioridadCorrecto() throws EntradaDeDatosException {
 		ArrayList<Atraccion> comprables = new ArrayList<Atraccion>();
 		comprables.add(new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura));
 		comprables.add(new Atraccion("Mordor", 25, 3.0, 4, TipoDeAtraccion.Aventura));
@@ -62,6 +65,8 @@ public class TestsComprable {
 			Assert.assertEquals(30, comprable.getPrecio());
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			e.printStackTrace();
+		} catch (CostoNegativoNoPermitido e) {
+			e.printStackTrace();
 		}		
 	}
 	
@@ -78,6 +83,8 @@ public class TestsComprable {
 			Assert.assertEquals(54, comprable.getPrecio());
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			e.printStackTrace();
+		} catch (PorcentajeFueraDeRango e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -93,6 +100,8 @@ public class TestsComprable {
 			comprable = new PromocionUnoGratuito("Pack Aventura", true, comprables, comprables.get(1));
 			Assert.assertEquals(13, comprable.getPrecio());
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
+			e.printStackTrace();
+		} catch (AtraccionesNoContieneObtieneGratis e) {
 			e.printStackTrace();
 		}	
 	}
@@ -131,11 +140,15 @@ public class TestsComprable {
 			packAventura = new PromocionAbsoluta("Pack Aventura", true, aventura, 25);
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
 			e.printStackTrace();
+		} catch (CostoNegativoNoPermitido e) {
+			e.printStackTrace();
 		}
 		PromocionAbsoluta packPaisaje = null;
 		try {
 			packPaisaje = new PromocionAbsoluta("Pack Paisaje", true, paisaje, 8);
 		} catch (PromocionTieneUnSoloTipoDeAtraccion e) {
+			e.printStackTrace();
+		} catch (CostoNegativoNoPermitido e) {
 			e.printStackTrace();
 		}
 		

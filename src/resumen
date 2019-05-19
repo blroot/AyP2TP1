@@ -1,7 +1,7 @@
 --- Resumen de compra de usuario Gonzalo---
 Usuario: Gonzalo
-Presupuesto: 1
-Tiempo Disponible: 3.0
+Presupuesto: 13
+Tiempo Disponible: 0.5
 Atraccion Favorita: Aventura
 Detalle de las atracciones/promociones compradas: 
 Promocion: Pack aventura 
@@ -18,24 +18,32 @@ Tipo: Aventura
 Precio: 25
 Promedio de Tiempo: 3.0
 Cupo: 2]
-Nombre: Moria
-Tipo: Aventura
-Precio: 10
+Promocion: Pack paisajes 
+Tipo: Paisaje 
+Precio total 10 
+Tiempo promedio total: 7.5 
+Atracciones incluidas: 
+[Nombre: Minas Tirith
+Tipo: Paisaje
+Precio: 5
+Promedio de Tiempo: 2.5
+Cupo: 24, Nombre: Abismo de Helm
+Tipo: Paisaje
+Precio: 5
 Promedio de Tiempo: 2.0
-Cupo: 5
+Cupo: 14, Nombre: Erebor
+Tipo: Paisaje
+Precio: 12
+Promedio de Tiempo: 3.0
+Cupo: 31]
 Nombre: Lothlorien
 Tipo: Degustacion
 Precio: 35
 Promedio de Tiempo: 1.0
 Cupo: 28
-Nombre: Erebor
-Tipo: Paisaje
-Precio: 12
-Promedio de Tiempo: 3.0
-Cupo: 31
 
-Total a pagar: 79
-Total de tiempo estimado para el itinerario: 13.0
+Total a pagar: 67
+Total de tiempo estimado para el itinerario: 15.5
 --- Resumen de compra de usuario Mariela---
 Usuario: Mariela
 Presupuesto: 39

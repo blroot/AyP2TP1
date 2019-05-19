@@ -160,6 +160,8 @@ public class GestorDeArchivos {
 			String aviso="La promocion: "+nombre+" NO fue cargada";
 			System.err.println("La "+posicion+"° Atraccion, de la linea "+linea+" es invalida. "+aviso);
 			//"Atraccion/es invalida/s en la linea: "+posicion+"\n"+aviso
+		} catch (PorcentajeFueraDeRango e) {
+			System.err.println("Promocion mal configurada");
 		}
 		
 	}
@@ -194,6 +196,8 @@ public class GestorDeArchivos {
 		} catch(NullPointerException e) {
 			String aviso="La promocion: "+nombre+" NO fue cargada";
 			System.err.println("La "+posicion+"° Atraccion, de la linea "+linea+" es invalida. "+aviso);
+		} catch (CostoNegativoNoPermitido e) {
+			System.out.println("Promocion mal configurada");
 		}
 		
 	}
@@ -227,6 +231,8 @@ public class GestorDeArchivos {
 		} catch(NullPointerException e) {
 			String aviso="La promocion: "+nombre+" NO fue cargada";
 			System.err.println("La "+posicion+"° Atraccion, de la linea "+linea+" es invalida. "+aviso);
+		} catch (AtraccionesNoContieneObtieneGratis e) {
+			e.printStackTrace();
 		}
 		
 	}
