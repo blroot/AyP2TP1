@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import sugerencias.Atraccion;
 import sugerencias.Comprable;
+import sugerencias.EntradaDeDatosException;
 import sugerencias.PromocionTieneUnSoloTipoDeAtraccion;
 import sugerencias.PromocionUnoGratuito;
 import sugerencias.TipoDeAtraccion;
@@ -15,7 +16,7 @@ import sugerencias.UsuarioNoPuedeAdquirirComprable;
 public class TestsUsuario {
 	
 	@Test
-	public void puedoCrearUsuarioYSusDatosSonCorrectos() {
+	public void puedoCrearUsuarioYSusDatosSonCorrectos() throws EntradaDeDatosException{
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		
 		Assert.assertEquals("Carlos", usuario.getNombre());
@@ -25,7 +26,7 @@ public class TestsUsuario {
 	}
 	
 	@Test
-	public void siUsuarioTieneMonedasSuficientesPuedeAdquirirAtraccion() {
+	public void siUsuarioTieneMonedasSuficientesPuedeAdquirirAtraccion() throws EntradaDeDatosException{
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Comprable atraccion = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		
@@ -33,7 +34,7 @@ public class TestsUsuario {
 	}
 	
 	@Test
-	public void siAgregoAtraccionAUsuarioSeLeCobraElPrecioCorrespondiente() {
+	public void siAgregoAtraccionAUsuarioSeLeCobraElPrecioCorrespondiente() throws EntradaDeDatosException{
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Comprable atraccion = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		
@@ -47,7 +48,7 @@ public class TestsUsuario {
 	}
 	
 	@Test
-	public void siAgregoAtraccionAUsuarioSeLeAgregaAListaDeAtracciones() {
+	public void siAgregoAtraccionAUsuarioSeLeAgregaAListaDeAtracciones() throws EntradaDeDatosException{
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Comprable atraccion = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		
@@ -61,7 +62,7 @@ public class TestsUsuario {
 	}
 	
 	@Test
-	public void siAgregoAtraccionAUsuarioSeLeDescuentaTiempoDisponibleCorrespondiente() {
+	public void siAgregoAtraccionAUsuarioSeLeDescuentaTiempoDisponibleCorrespondiente() throws EntradaDeDatosException{
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Comprable atraccion = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		
@@ -75,7 +76,7 @@ public class TestsUsuario {
 	}
 	
 	@Test
-	public void siAgregoAtraccionAlUsuarioNoPuedeVolverAAdquirirLaMismaAtraccion() {
+	public void siAgregoAtraccionAlUsuarioNoPuedeVolverAAdquirirLaMismaAtraccion() throws EntradaDeDatosException{
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Comprable atraccion = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		
@@ -89,7 +90,7 @@ public class TestsUsuario {
 	}
 		
 	@Test
-	public void siAgregoAtraccionAlUsuarioNoPuedeAdquirirPromocionQueContieneLaMismaAtraccion() {
+	public void siAgregoAtraccionAlUsuarioNoPuedeAdquirirPromocionQueContieneLaMismaAtraccion() throws EntradaDeDatosException{
 		Usuario usuario = new Usuario("Carlos", 10, 8.0, TipoDeAtraccion.Aventura);
 		Atraccion atraccion = new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura);
 					
@@ -115,7 +116,7 @@ public class TestsUsuario {
 	}
 	
 	@Test
-	public void siAgregoPromocionAlUsuarioNoPuedeAdquirirAtraccionQueEstaEnLaPromocion() {
+	public void siAgregoPromocionAlUsuarioNoPuedeAdquirirAtraccionQueEstaEnLaPromocion() throws EntradaDeDatosException{
 		Usuario usuario = new Usuario("Carlos", 1000, 100.0, TipoDeAtraccion.Aventura);
 		Atraccion atraccion = new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura);
 					
@@ -138,7 +139,7 @@ public class TestsUsuario {
 	}
 	
 	@Test
-	public void siAgregoPromocionAlUsuarioNoPuedeAdquirirOtraPromocionQueTieneAtraccionDeLaPrimera() {
+	public void siAgregoPromocionAlUsuarioNoPuedeAdquirirOtraPromocionQueTieneAtraccionDeLaPrimera() throws EntradaDeDatosException{
 		Usuario usuario = new Usuario("Carlos", 1000, 80.0, TipoDeAtraccion.Aventura);
 		Atraccion atraccion = new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura);
 					

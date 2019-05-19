@@ -21,14 +21,16 @@ public class GestorDeArchivos {
 	private final String rutaConfiguracionUsuarios = "src//usuarios";
 	private final String rutaConfiguracionAtracciones = "src//atracciones";
 	private final String rutaConfiguracionPromociones = "src//promociones";
+	private VerificarDeEntradas verificador;
 	
 	public GestorDeArchivos() {
+		verificador=new VerificarDeEntradas();
 		this.usuarios = new ArrayList<Usuario>();
 		this.comprables = new ArrayList<Comprable>();
 		this.mapaDeAtracciones = new HashMap<String, Atraccion>();
 	}
 	
-	public void leerArchivosDeConfiguracion() {
+	public void leerArchivosDeConfiguracion() throws EntradaDeDatosException {
 		
 		leerArchivoDeUsuarios();
 		leerArchivoDeAtracciones();
@@ -37,7 +39,7 @@ public class GestorDeArchivos {
 		this.mapaDeAtracciones = null;
 	}
 	
-	private void leerArchivoDeUsuarios() {
+	private void leerArchivoDeUsuarios() throws EntradaDeDatosException {
 		
 		int posicion = 0;
 		
@@ -61,7 +63,7 @@ public class GestorDeArchivos {
 		} 	
 	}
 	
-	private void leerArchivoDeAtracciones() {
+	private void leerArchivoDeAtracciones() throws EntradaDeDatosException {
 		
 		int posicion = 0;
 		
@@ -229,7 +231,7 @@ public class GestorDeArchivos {
 		
 	}
 
-	private void crearUsuario(String datos) {
+	private void crearUsuario(String datos) throws EntradaDeDatosException {
 		StringTokenizer st = new StringTokenizer(datos);
 		
 		String nombre = st.nextToken(",");
@@ -237,6 +239,8 @@ public class GestorDeArchivos {
 			int presupuesto = Integer.parseInt(st.nextToken(","));
 			double tiempoDisponible = Double.parseDouble(st.nextToken(","));
 			TipoDeAtraccion tipoDeAtraccionPreferida = TipoDeAtraccion.valueOf(st.nextToken());		
+			verificador.comprobacionFinalDineroIngresado(presupuesto, nombre);
+			verificador.comprobacionFinalTiempoIngresado(tiempoDisponible, nombre);
 			Usuario nuevoUsuario = new Usuario(nombre, presupuesto, tiempoDisponible, tipoDeAtraccionPreferida);
 			this.usuarios.add(nuevoUsuario);	
 		} catch(NumberFormatException e) {
@@ -247,7 +251,7 @@ public class GestorDeArchivos {
 		
 	}
 	
-	private void crearAtraccion(String datos) {
+	public void crearAtraccion(String datos) throws EntradaDeDatosException {
 		StringTokenizer st = new StringTokenizer(datos);
 		
 		
@@ -257,7 +261,9 @@ public class GestorDeArchivos {
 		double tiempo = Double.parseDouble(st.nextToken(","));
 		int cupo = Integer.parseInt(st.nextToken(","));
 		TipoDeAtraccion tipo = TipoDeAtraccion.valueOf(st.nextToken(","));
-
+		verificador.comprobacionFinalCupo(cupo, nombre);
+		verificador.comprobacionFinalDineroIngresado(costo, nombre);
+		verificador.comprobacionFinalTiempoIngresado(tiempo, nombre);
 		Atraccion nuevaAtraccion = new Atraccion(nombre, costo, tiempo, cupo, tipo);
 		this.comprables.add(nuevaAtraccion);
 		this.mapaDeAtracciones.put(nuevaAtraccion.getNombre(), nuevaAtraccion);

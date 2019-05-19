@@ -10,6 +10,7 @@ import org.junit.Test;
 import sugerencias.Atraccion;
 import sugerencias.ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo;
 import sugerencias.Comprable;
+import sugerencias.EntradaDeDatosException;
 import sugerencias.Prioridad;
 import sugerencias.Promocion;
 import sugerencias.PromocionAbsoluta;
@@ -21,7 +22,7 @@ import sugerencias.TipoDeAtraccion;
 public class TestsComprable {
 	
 	@Test
-	public void puedoCrearAtraccionMoriaYTieneCostoTiempoYPrioridadCorrecto() {
+	public void puedoCrearAtraccionMoriaYTieneCostoTiempoYPrioridadCorrecto() throws EntradaDeDatosException {
 		Comprable atraccion = new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura);
 		Assert.assertEquals(10, atraccion.getPrecio());
 		Assert.assertEquals(2.0, atraccion.getTiempoTotal(), 0.1);
@@ -30,7 +31,7 @@ public class TestsComprable {
 	}
 	
 	@Test
-	public void puedoCrearPromocionYTieneCostoTiempoYPrioridadCorrecto() {
+	public void puedoCrearPromocionYTieneCostoTiempoYPrioridadCorrecto() throws EntradaDeDatosException{
 		ArrayList<Atraccion> comprables = new ArrayList<Atraccion>();
 		comprables.add(new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura));
 		comprables.add(new Atraccion("Mordor", 25, 3.0, 4, TipoDeAtraccion.Aventura));
@@ -49,7 +50,7 @@ public class TestsComprable {
 	}
 	
 	@Test
-	public void promocionAbsolutaTieneCostoCorrecto() {
+	public void promocionAbsolutaTieneCostoCorrecto() throws EntradaDeDatosException{
 		ArrayList<Atraccion> comprables = new ArrayList<Atraccion>();
 		comprables.add(new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura));
 		comprables.add(new Atraccion("Mordor", 25, 3.0, 4, TipoDeAtraccion.Aventura));
@@ -65,7 +66,7 @@ public class TestsComprable {
 	}
 	
 	@Test
-	public void promocionPorcentualTieneCostoCorrecto() {
+	public void promocionPorcentualTieneCostoCorrecto() throws EntradaDeDatosException{
 		ArrayList<Atraccion> comprables = new ArrayList<Atraccion>();
 		comprables.add(new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura));
 		comprables.add(new Atraccion("Mordor", 20, 3.0, 4, TipoDeAtraccion.Aventura));
@@ -81,7 +82,7 @@ public class TestsComprable {
 	}
 	
 	@Test
-	public void promocionMordorGratuitoTieneCostoCorrecto() {
+	public void promocionMordorGratuitoTieneCostoCorrecto() throws EntradaDeDatosException{
 		ArrayList<Atraccion> comprables = new ArrayList<Atraccion>();
 		comprables.add(new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura));
 		comprables.add(new Atraccion("Mordor", 25, 3.0, 4, TipoDeAtraccion.Aventura));
@@ -97,7 +98,7 @@ public class TestsComprable {
 	}
 	
 	@Test
-	public void puedoOrdenarPorTipoDeComprableAventuraPrecioYTiempo() {
+	public void puedoOrdenarPorTipoDeComprableAventuraPrecioYTiempo() throws EntradaDeDatosException{
 		Atraccion moria = new Atraccion("Moria", 10, 2.0, 6, TipoDeAtraccion.Aventura);
 		Atraccion minas = new Atraccion("Minas Tirith", 5, 2.5, 25, TipoDeAtraccion.Paisaje);
 		Atraccion comarca = new Atraccion("La Comarca", 3, 6.5, 150, TipoDeAtraccion.Degustacion);

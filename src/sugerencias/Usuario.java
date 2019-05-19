@@ -12,39 +12,34 @@ public class Usuario {
 	private double tiempoGastado;
 	private VerificarDeEntradas verificador;
 	
-	public Usuario(String nombre, int presupuesto, double tiempoDisponible, TipoDeAtraccion tipoDeAtraccionPreferida) {
+	public Usuario(String nombre, int presupuesto, double tiempoDisponible, TipoDeAtraccion tipoDeAtraccionPreferida) throws EntradaDeDatosException {
 		this.comprados = new ArrayList<Comprable>();
 		this.nombre = nombre;
-		//si inicializo verificador abajo, se rompe todo...
 		verificador=new VerificarDeEntradas();
 		setPresupuesto(presupuesto);
 		setTiempoDisponible(tiempoDisponible);
-		try{
-			setTipoDeAtraccionPreferida(tipoDeAtraccionPreferida);		
-		} catch(IllegalArgumentException e) {
-			System.err.println("Tipo de atraccion no valida");
-		}
+		setTipoDeAtraccionPreferida(tipoDeAtraccionPreferida);		
 		dineroGastado=0;
 		tiempoGastado=0;
 	}
 
 	public TipoDeAtraccion getTipoDeAtraccionPreferida() {
 		return tipoDeAtraccionPreferida;
-	}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+	} 
+	
 	public void setTipoDeAtraccionPreferida(TipoDeAtraccion tipoDeAtraccionPreferida) {
 			this.tipoDeAtraccionPreferida = tipoDeAtraccionPreferida;
 	}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	public void setPresupuesto(int presupuesto) {
+
+	public void setPresupuesto(int presupuesto) throws DineroIncorrectoException {
 		//tambien le paso el nombre para que arroje bien la excepcion
-		if(verificador.comprobacionFinalDineroIngresado(presupuesto, this.nombre)){
+		if(verificador.comprobacionInicialDineroIngresado(presupuesto)){
 			this.presupuesto=presupuesto;
 		}
 	}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	public void setTiempoDisponible(double tiempoDisponible) {
-		if(verificador.comprobacionFinalTiempoIngresado(tiempoDisponible, this.nombre)) {
+
+	public void setTiempoDisponible(double tiempoDisponible) throws TiempoIncorrectoException {
+		if(verificador.comprobacionInicialTiempoIngresado(tiempoDisponible)) {
 			this.tiempoDisponible=tiempoDisponible;
 		}
 	}
@@ -74,7 +69,7 @@ public class Usuario {
 			System.out.println(comprable.getNombre());
 		}
 	}
-	//agregue atributos de tiempo y dinero gastado, con sus get
+
 	public void agregarComprable(Comprable compra) throws UsuarioNoPuedeAdquirirComprable {
 		if (compra.puedeAdquirir(this)) {
 			this.comprados.add(compra);

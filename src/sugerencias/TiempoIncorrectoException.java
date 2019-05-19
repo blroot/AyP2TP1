@@ -1,6 +1,6 @@
 package sugerencias;
 
-public class UsuarioYAtraccionTiempoIncorrectoException extends EntradaDeDatosException {
+public class TiempoIncorrectoException extends EntradaDeDatosException {
 	
 //	public static final String positivo="El valor referido a Tiempo Disponible, es incorrecto. Este debe ser mayor a 0";
 	@Override

@@ -12,14 +12,19 @@ public class Sugerencia {
 		this.usuarios=usuarios;
 	}
 	
-	public void sugerirServicios() {		
+	public void sugerirServicios() {	
+		//se recorre usuario por usuario
 		for(Usuario usuario: usuarios) {
-			System.out.println("\nHola " + usuario.getNombre());	
+			System.out.println("\nHola " + usuario.getNombre());
+			//se ordenan las atracciones cargadas
 			Comparator<Comprable> comparador = new ComparadorDeComprablesPorTipoPreferenciaPrecioYTiempo(usuario.getTipoDeAtraccion());
 			Collections.sort(comprables,comparador);
+			//se iteran las atracciones
 			for (Comprable comprable : comprables) {
+				//si no tiene atraccion repetida y puede adquirir, pasa
 				if(comprable.puedeAdquirir(usuario)) {
 					boolean respuestaIncorrecta = false;
+					//ofrece atraccion, repite si la respuesta no es "si" o "no"
 					do {
 						respuestaIncorrecta = false;
 						System.out.println("Tenemos la siguiente oferta para vos: \n" + comprable.toString());
@@ -43,6 +48,7 @@ public class Sugerencia {
 					} while (respuestaIncorrecta); 
 				}
 			}
+			//se imprime el itinerario y aviso que paso al otro usuario
 			System.out.println("\nItinerario del usuario: "+usuario.getNombre()+"\nDinero gastado: "+usuario.getDineroGastado()
 								+"\nTiempo necesario: "+usuario.getTiempoGastado()+"\nCompró: ");
 			usuario.getNombresDeComprados();

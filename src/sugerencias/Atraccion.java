@@ -8,43 +8,35 @@ public class Atraccion extends Comprable {
 	private TipoDeAtraccion tipoDeAtraccion;
 	private VerificarDeEntradas verificador;
 
-	public Atraccion(String nombre, int costo, double tiempo, int cupo, TipoDeAtraccion tipo) {
+	public Atraccion(String nombre, int costo, double tiempo, int cupo, TipoDeAtraccion tipo) throws EntradaDeDatosException {
 		super(nombre, Prioridad.Baja);
 		verificador=new VerificarDeEntradas();
 		setCosto(costo);
 		setPromedioDeTiempo(tiempo);
 		setCupoDiario(cupo);
-		try {
-			setTipoDeAtraccion(tipo);	
-		}catch(IllegalArgumentException e) {
-			System.err.println("Tipo de atraccion no incorrecta");
-		}
+		setTipoDeAtraccion(tipo);	
+		
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void setCosto(int costo) {
-		if(verificador.comprobacionFinalDineroIngresado(costo,getNombre())){
+
+	public void setCosto(int costo) throws DineroIncorrectoException {
+		if(verificador.comprobacionInicialDineroIngresado(costo)){
 			this.costo = costo;
 		}
 	}
-	//LISTO
-	public void setPromedioDeTiempo(double tiempo) {
-		if(verificador.comprobacionFinalTiempoIngresado(tiempo,getNombre())) {
+	public void setPromedioDeTiempo(double tiempo) throws TiempoIncorrectoException {
+		if(verificador.comprobacionInicialTiempoIngresado(tiempo)) {
 			this.promedioDeTiempo = tiempo;	
 		}
 	}
-	//LISTO
-	public void setCupoDiario(int cupo) {
-		if(verificador.comprobacionFinalCupo(cupo,getNombre())){
+	public void setCupoDiario(int cupo) throws AtraccionCupoIncorrectoException{
+		if(verificador.comprobacionInicialCupo(cupo)){
 			this.cupoDiario = cupo;
-			}
+		}
 	}
-	//LISTO
 	public void setTipoDeAtraccion(TipoDeAtraccion tipo) {	
 		this.tipoDeAtraccion = tipo;
 	}
 	
-	
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 	public void disminuirCupoDiario() {
 		this.cupoDiario--;
 	}

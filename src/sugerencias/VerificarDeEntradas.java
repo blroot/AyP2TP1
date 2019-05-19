@@ -2,15 +2,14 @@ package sugerencias;
 
 public class VerificarDeEntradas {
 	
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	private boolean comprobacionInicialDineroIngresado(int presupuesto) throws UsuarioYAtraccionDineroIncorrectoException {
+
+	protected boolean comprobacionInicialDineroIngresado(int presupuesto) throws DineroIncorrectoException {
 		boolean correcto=false;
 		if(presupuesto>0){
 			correcto=true;
 			return correcto;
 		} else {
-			throw new UsuarioYAtraccionDineroIncorrectoException();
+			throw new DineroIncorrectoException();
 		}
 	}
 	
@@ -18,8 +17,8 @@ public class VerificarDeEntradas {
 		boolean correcto=false;
 		try {
 			return comprobacionInicialDineroIngresado(presupuesto);
-		} catch(UsuarioYAtraccionDineroIncorrectoException e) {
-			UsuarioYAtraccionDineroIncorrectoException exception=new UsuarioYAtraccionDineroIncorrectoException();
+		} catch(DineroIncorrectoException e) {
+			DineroIncorrectoException exception=new DineroIncorrectoException();
 			System.err.println(exception.exponerError(nombre));
 			return correcto;
 		} 
@@ -29,14 +28,14 @@ public class VerificarDeEntradas {
 			return correcto;
 		}
 	}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	private boolean comprobacionInicialTiempoIngresado(double tiempo) throws UsuarioYAtraccionTiempoIncorrectoException {
+
+	protected boolean comprobacionInicialTiempoIngresado(double tiempo) throws TiempoIncorrectoException {
 		boolean correcto=false;
 		if(tiempo>0){
 			correcto=true;
 			return correcto;
 		} else {
-			throw new UsuarioYAtraccionTiempoIncorrectoException();
+			throw new TiempoIncorrectoException();
 		}
 	}
 	
@@ -44,8 +43,8 @@ public class VerificarDeEntradas {
 		boolean correcto=false;
 		try {
 			return comprobacionInicialTiempoIngresado(tiempo);
-		} catch(UsuarioYAtraccionTiempoIncorrectoException e) {
-			UsuarioYAtraccionTiempoIncorrectoException exception=new UsuarioYAtraccionTiempoIncorrectoException();
+		} catch(TiempoIncorrectoException e) {
+			TiempoIncorrectoException exception=new TiempoIncorrectoException();
 			System.err.println(exception.exponerError(nombre));
 			return correcto;
 		} 
@@ -55,8 +54,8 @@ public class VerificarDeEntradas {
 			return correcto;
 		}
 	}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	private boolean comprobacionInicialCupo(int cupo) throws AtraccionCupoIncorrectoException {
+
+	protected boolean comprobacionInicialCupo(int cupo) throws AtraccionCupoIncorrectoException {
 		boolean correcto=false;
 		if(cupo>0){
 			correcto=true;
@@ -70,8 +69,7 @@ public class VerificarDeEntradas {
 		boolean correcto=false;
 		try {
 			return comprobacionInicialCupo(cupo);
-		} catch(AtraccionCupoIncorrectoException e) {
-			AtraccionCupoIncorrectoException exception=new AtraccionCupoIncorrectoException();
+		} catch(AtraccionCupoIncorrectoException exception) {
 			System.err.println(exception.exponerError(nombre));
 			return correcto;
 		}
